@@ -3,7 +3,7 @@ import sys
 import os
 # Switching backend on fortuna
 print ("Platform : " + sys.platform)
-if sys.platform is "linux":
+if sys.platform == "linux":
     print ("Switching backend to 'agg'")
 
     matplotlib.use('Agg')
@@ -496,7 +496,7 @@ def plot_covariance_schedule_from_enclosing_folder(inputfolder,convert_to_RTN,lo
         plt.show()
 
 
-if sys.platform is not "linux":
+if sys.platform != "linux":
     plot_results("/Users/bbercovici/Desktop/AFSCN_DSN_8_HRS_R_4_RR_7/",convert_to_RTN = False,savepath = None,skip = 1,title  = "AFSCN_DSN_8_HRS_R_4_RR_7")
 
 
