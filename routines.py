@@ -239,7 +239,7 @@ def plot_everything(epoch,labels,deviations = None,cov = None,mnvr = None, savep
     if mnvr is not None:
         plot_maneuvers(mnvr)
 
-    plt.ylim([- 0.01 * 10 * 1e-3,10 * 1e-3])
+    plt.ylim([- 0.01 * 10 * 1e-3,30 * 1e-3])
 
     plt.xlabel("Days since Epoch")
     plt.ylabel("Position (km)")
@@ -282,7 +282,7 @@ def plot_everything(epoch,labels,deviations = None,cov = None,mnvr = None, savep
     plt.ylabel("Velocity (km/s)")
     plt.title(title)
 
-    plt.ylim([-0.01 * 0.5 * 1e-6,0.5 * 1e-6])
+    plt.ylim([-0.01 * 0.5 * 1e-6,3 * 0.5 * 1e-6])
 
     plt.gca().yaxis.set_major_formatter(mtick.FormatStrFormatter('%.0e'))
 
