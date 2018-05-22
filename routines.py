@@ -55,7 +55,7 @@ def load_data(inputpath,only_covs = False,skip = 1):
 
     kept_indices = range(0,len(epoch),skip)
 
-    print("Kept " + str(len(kept_indices)) + " observations from " + str(len(epoch)))
+    print("Kept " + str(len(kept_indices)) + " observations from " + str(len(epoch)) + ", skipping " + str(skip))
 
     epoch = np.copy(epoch[kept_indices])
 
