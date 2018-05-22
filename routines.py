@@ -209,12 +209,12 @@ def plot_everything(epoch,labels,deviations = None,cov = None,mnvr = None, savep
     if mnvr is not None:
         plot_maneuvers(mnvr)
 
-    plt.ylim([plt.gca().get_ylim()[0] * 0.1,10 * 1e-3])
+    plt.ylim([- 0.01 * 10 * 1e-3,10 * 1e-3])
 
     plt.xlabel("Days since Epoch")
     plt.ylabel("Position (km)")
-    plt.legend(loc = "center right",bbox_to_anchor = (1.1,0.5))
-    plt.tight_layout()
+    plt.legend(loc = "center right",bbox_to_anchor = (1.2,0.5))
+    # plt.tight_layout()
     if savepath is None:
         plt.show()
     else:
@@ -249,13 +249,13 @@ def plot_everything(epoch,labels,deviations = None,cov = None,mnvr = None, savep
 
     plt.xlabel("Days since Epoch")
     plt.ylabel("Velocity (km/s)")
-    plt.ylim([plt.gca().get_ylim()[0] * 0.1,0.5 * 1e-6])
+    plt.ylim([-0.01 * 0.5 * 1e-6,0.5 * 1e-6])
 
     plt.gca().yaxis.set_major_formatter(mtick.FormatStrFormatter('%.0e'))
 
-    plt.legend(loc = "center right",bbox_to_anchor = (1.1,0.5))
+    plt.legend(loc = "center right",bbox_to_anchor = (1.2,0.5))
     
-    plt.tight_layout()
+    # plt.tight_layout()
 
     if savepath is None:
         plt.show()
