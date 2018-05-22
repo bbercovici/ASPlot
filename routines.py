@@ -38,7 +38,7 @@ Inputs:
 ------
 - inputpath: directory from where to pull data
 - only_covs : if true, will only load epoch, cov and ref_traj
-- subsampling : 0 < subsampling < 1 . Determines the fraction of data points to be plotted
+- skip : determines the number of measurements to skip between two consecutive kept measurements (skip == 1: no discarding)
 Ouputs:
 ------
 - epoch : vector of times (days)
@@ -49,17 +49,22 @@ Ouputs:
 - mnvr : vector of maneuver epochs
 
 '''
-def load_data(inputpath,only_covs = False,subsampling = 1.):
+def load_data(inputpath,only_covs = False,skip = 1.):
 
     epoch = np.loadtxt(inputpath + "epoch.txt")
-    p = (int)(subsampling * len(epoch))
-    epoch = np.copy(epoch[0:p])
-    cov = np.loadtxt(inputpath + "cov.txt")[0:p,:]
-    ref_traj = np.loadtxt(inputpath + "state.txt")[0:p,:]
+
+    kept_indices = range(0,len(epoch),skip)
+
+
+    epoch = np.copy(epoch[kept_indices])
+
+
+    cov = np.loadtxt(inputpath + "cov.txt")[kept_indices,:]
+    ref_traj = np.loadtxt(inputpath + "state.txt")[kept_indices,:]
 
     if not only_covs:
-        stm = np.loadtxt(inputpath + "stm.txt")[0:p,:]
-        deviations = np.loadtxt(inputpath + "dev.txt")[0:p,:]
+        stm = np.loadtxt(inputpath + "stm.txt")[kept_indices,:]
+        deviations = np.loadtxt(inputpath + "dev.txt")[kept_indices,:]
     else:
         stm = None
         deviations = None
@@ -347,12 +352,11 @@ Inputs:
 - inputfolder : path to enclosing folder for all cases
 - convert_to_RTN : True if computed states must be converted to RTN
 - log_scale : True if covariances must be plotted in semilogy scale
-- subsampling : 0 < subsampling < 1 . Determines the fraction of data points to be plotted
-
+- skip : determines the number of measurements to skip between two consecutive kept measurements (skip == 1: no discarding)
 
 '''
 
-def plot_covariance_schedule(inputfolder,convert_to_RTN,log_scale = True,outputname = None,subsampling = 1):
+def plot_covariance_schedule(inputfolder,convert_to_RTN,log_scale = True,outputname = None,skip = 1):
     covs = []
     cases = []
     ref_trajs = []
@@ -396,7 +400,7 @@ def plot_covariance_schedule(inputfolder,convert_to_RTN,log_scale = True,outputn
             print("Loading case " + subfolder)
 
             # Loading
-            epoch,stm,cov,deviations,ref_traj,mnvr = load_data(foldername,only_covs = True,subsampling = subsampling)
+            epoch,stm,cov,deviations,ref_traj,mnvr = load_data(foldername,only_covs = True,skip = skip)
 
             # Converting
             if convert_to_RTN:
