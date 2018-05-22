@@ -2,6 +2,7 @@ import matplotlib
 import sys
 import os
 # Switching backend on fortuna
+print ("Platform : " + sys.platform)
 if sys.platform is "linux":
     matplotlib.use('Agg')
 
