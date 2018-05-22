@@ -89,7 +89,7 @@ show plots
 '''
 def plot_results(inputpath,convert_to_RTN = False,savepath = None,skip = 1):
 
-    epoch,stm,cov,deviations,ref_traj,mnvr = load_data(inputpath,skip)
+    epoch,stm,cov,deviations,ref_traj,mnvr = load_data(inputpath,only_covs = True,skip = skip)
 
     # If need be, state deviations and covariances are converted to the RTN frame
     if convert_to_RTN :
