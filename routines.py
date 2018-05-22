@@ -1,5 +1,8 @@
 import matplotlib
-matplotlib.use('Agg')
+import os
+# Switching backend on fortuna
+if sys.platform is "linux":
+    matplotlib.use('Agg')
 
 import numpy as np
 
@@ -76,6 +79,29 @@ def load_data(inputpath,only_covs = False,skip = 1):
 
 
 
+
+'''
+Generates results plots for all simulation cases in the enclosing folder
+Inputs:
+-------
+- inputpath : path to directory where epoch.txt, cov.txt, state.txt , ref_traj.txt and stm.txt are
+- convert_to_RTN : True if the provided state/covariances must be expressed in the RTN frame, False otherwise
+- savepath : path to folder where to save generated plots, must be terminated by "/". If None provided then will just 
+show plots
+- skip : determines the number of measurements to skip between two consecutive kept measurements (skip == 1: no discarding)
+
+'''
+def plot_results_from_enclosing_folder(inputfolder,convert_to_RTN = False,savepath = None,skip = 1):
+
+    for folder in os.walk(inputfolder) :
+        for subfolder in folder[1]:
+            foldername = folder[0] + subfolder + "/"
+            print("Loading case " + subfolder)
+            plot_results(inputpath,convert_to_RTN = convert_to_RTN,savepath = foldername,skip = skip,title = subfolder)
+
+
+
+
 '''
 Generates results plots from files in provided directory
 Inputs:
@@ -87,7 +113,7 @@ show plots
 - skip : determines the number of measurements to skip between two consecutive kept measurements (skip == 1: no discarding)
 
 '''
-def plot_results(inputpath,convert_to_RTN = False,savepath = None,skip = 1):
+def plot_results(inputpath,convert_to_RTN = False,savepath = None,skip = 1,title = None):
 
     epoch,stm,cov,deviations,ref_traj,mnvr = load_data(inputpath,only_covs = True,skip = skip)
 
@@ -99,7 +125,7 @@ def plot_results(inputpath,convert_to_RTN = False,savepath = None,skip = 1):
     labels = create_labels(convert_to_RTN)
 
     # The state deviations are plotted along with the covariances
-    plot_everything(epoch,labels,None,cov,mnvr,savepath)
+    plot_everything(epoch,labels,None,cov,mnvr,savepath,title)
 
 
 '''
@@ -166,7 +192,7 @@ Inputs:
 - savepath : path to folder where to save generated plots, must be terminated by "/". If None provided then will just 
 show plots
 '''
-def plot_everything(epoch,labels,deviations = None,cov = None,mnvr = None, savepath = None):
+def plot_everything(epoch,labels,deviations = None,cov = None,mnvr = None, savepath = None,title = None):
 
     # Shifting the epoch
     if mnvr is not None:
@@ -185,6 +211,9 @@ def plot_everything(epoch,labels,deviations = None,cov = None,mnvr = None, savep
     if cov is not None:
         sd_states = [np.sqrt(np.diag(np.reshape(cov[i,:],[N,N]))) for i in range(epoch.shape[0])]
         sd_states = np.vstack(sd_states)
+
+    for i in range(sd_states.shape[0]):
+        print sd_states[i,3]
 
     # Position
     if deviations is not None and cov is None:
@@ -213,6 +242,7 @@ def plot_everything(epoch,labels,deviations = None,cov = None,mnvr = None, savep
 
     plt.xlabel("Days since Epoch")
     plt.ylabel("Position (km)")
+    plt.title(title)
     plt.legend(loc = "center right",bbox_to_anchor = (1.25,0.5))
     # plt.tight_layout()
     if savepath is None:
@@ -249,6 +279,8 @@ def plot_everything(epoch,labels,deviations = None,cov = None,mnvr = None, savep
 
     plt.xlabel("Days since Epoch")
     plt.ylabel("Velocity (km/s)")
+    plt.title(title)
+
     plt.ylim([-0.01 * 0.5 * 1e-6,0.5 * 1e-6])
 
     plt.gca().yaxis.set_major_formatter(mtick.FormatStrFormatter('%.0e'))
@@ -351,18 +383,16 @@ def plot_maneuvers(mnvr):
 '''
 Plots covariance envelope 
 for each state component given the provided
-observation schedules
+observation schedules (WORK IN PROGRESS)
 Inputs:
 -------
-
 - inputfolder : path to enclosing folder for all cases
 - convert_to_RTN : True if computed states must be converted to RTN
 - log_scale : True if covariances must be plotted in semilogy scale
 - skip : determines the number of measurements to skip between two consecutive kept measurements (skip == 1: no discarding)
-
 '''
 
-def plot_covariance_schedule(inputfolder,convert_to_RTN,log_scale = True,outputname = None,skip = 1):
+def plot_covariance_schedule_from_enclosing_folder(inputfolder,convert_to_RTN,log_scale = True,outputname = None,skip = 1):
     covs = []
     cases = []
     ref_trajs = []
@@ -465,8 +495,7 @@ def plot_covariance_schedule(inputfolder,convert_to_RTN,log_scale = True,outputn
         plt.show()
 
 
-
-# plot_results("outputs/case_3/",True)
+plot_results("/Users/bbercovici/Desktop/AFSCN_DSN_8_HRS_R_4_RR_7/",convert_to_RTN = False,savepath = None,skip = 1,title  = "AFSCN_DSN_8_HRS_R_4_RR_7")
 
 
 
