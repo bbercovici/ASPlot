@@ -371,7 +371,7 @@ def plot_covariance_schedule(inputfolder,convert_to_RTN,log_scale = True,outputn
     for case in range(len(covs)):
         print("Reading case " + cases[case])
         print(covs[case].shape)
-        print(ref_traj.shape)
+        print(ref_trajs[case].shape)
         
         if convert_to_RTN:
             dummy = None
