@@ -4,6 +4,8 @@ import os
 # Switching backend on fortuna
 print ("Platform : " + sys.platform)
 if sys.platform is "linux":
+    print ("Switching backend to 'agg'")
+
     matplotlib.use('Agg')
 
 import numpy as np
