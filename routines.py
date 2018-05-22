@@ -38,6 +38,7 @@ Inputs:
 ------
 - inputpath: directory from where to pull data
 - only_covs : if true, will only load epoch, cov and ref_traj
+- subsampling : 0 < subsampling < 1 . Determines the fraction of data points to be plotted
 Ouputs:
 ------
 - epoch : vector of times (days)
@@ -48,15 +49,17 @@ Ouputs:
 - mnvr : vector of maneuver epochs
 
 '''
-def load_data(inputpath,only_covs = False):
-    
+def load_data(inputpath,only_covs = False,subsampling = 1.):
+
     epoch = np.loadtxt(inputpath + "epoch.txt")
-    cov = np.loadtxt(inputpath + "cov.txt")
-    ref_traj = np.loadtxt(inputpath + "state.txt")
+    p = (int)(subsampling * len(epoch))
+    epoch = epoch[0:p,:]
+    cov = np.loadtxt(inputpath + "cov.txt")[0:p,:]
+    ref_traj = np.loadtxt(inputpath + "state.txt")[0:p,:]
 
     if not only_covs:
-        stm = np.loadtxt(inputpath + "stm.txt")
-        deviations = np.loadtxt(inputpath + "dev.txt")
+        stm = np.loadtxt(inputpath + "stm.txt")[0:p,:]
+        deviations = np.loadtxt(inputpath + "dev.txt")[0:p,:]
     else:
         stm = None
         deviations = None
@@ -344,25 +347,54 @@ Inputs:
 - inputfolder : path to enclosing folder for all cases
 - convert_to_RTN : True if computed states must be converted to RTN
 - log_scale : True if covariances must be plotted in semilogy scale
+- subsampling : 0 < subsampling < 1 . Determines the fraction of data points to be plotted
+
 
 '''
 
-def plot_covariance_schedule(inputfolder,convert_to_RTN,log_scale = True,outputname = None):
+def plot_covariance_schedule(inputfolder,convert_to_RTN,log_scale = True,outputname = None,subsampling = 1):
     covs = []
     cases = []
     ref_trajs = []
     epochs = []
     sd_states_all_cases = []
 
+    # Creating the subplots
+    ax_x_pos = plt.subplot(321)
+    plt.ylabel(labels["e1"] + " position (km)")
 
+    # Plot e2 pos component
+    ax_y_pos = plt.subplot(323, sharex= ax_x_pos)
+    plt.ylabel(labels["e2"] + " position (km)")
 
+    # Plot e3 pos component
+    ax_z_pos = plt.subplot(325, sharex= ax_x_pos)
+    
+    plt.xlabel("Days since Epoch")
+    plt.ylabel(labels["e3"] + " position (km)")
+
+    # Plot e1 vel component
+    ax_x_vel = plt.subplot(322, sharex= ax_x_pos)
+    plt.ylabel(labels["e1"] + " velocity (km/s)")
+    
+    # Plot e2 vel component
+    ax_y_vel = plt.subplot(324, sharex= ax_x_pos)
+    plt.ylabel(labels["e2"] + " velocity (km/s)")
+    
+    # Plot e3 vel component
+    ax_z_vel = plt.subplot(326, sharex= ax_x_pos)
+    plt.ylabel(labels["e3"] + " velocity (km/s)")
+
+    plt.xlabel("Days since Epoch")
+
+    # Loading and plotting
     for folder in os.walk(inputfolder) :
         for subfolder in folder[1]:
             foldername = folder[0] + subfolder + "/"
             print("Loading case " + subfolder)
 
             # Loading
-            epoch,stm,cov,deviations,ref_traj,mnvr = load_data(foldername,only_covs = True)
+            epoch,stm,cov,deviations,ref_traj,mnvr = load_data(foldername,only_covs = True,subsampling = subsampling)
 
             # Converting
             if convert_to_RTN:
@@ -374,83 +406,44 @@ def plot_covariance_schedule(inputfolder,convert_to_RTN,log_scale = True,outputn
             sd_states = [np.sqrt(np.diag(np.reshape(cov[i,:],[N,N]))) for i in range(epoch.shape[0])]
             sd_states = np.vstack(sd_states)
 
-            # Storing
-            covs += [cov]
-            cases += [subfolder]
-            ref_trajs += [ref_traj]
-            epochs += [epoch - epoch[0]]
-            sd_states_all_cases += [sd_states]
-
-    labels = create_labels(convert_to_RTN)
-
-    # Plot e1 pos component
-    ax1 = plt.subplot(321)
-
-    for case in range(len(covs)):
-        if log_scale:
-            plt.semilogy(epochs[case],3 * sd_states_all_cases[case][:,0],'.')
-        else:
-            plt.plot(epochs[case],3 * sd_states_all_cases[case][:,0],'.')
+            # Plot e1 pos component
+            if log_scale:
+                ax_x_pos.semilogy(epoch,3 * sd_states[:,0],'.')
+            else:
+                ax_x_pos.plot(epoch,3 * sd_states[:,0],'.')
 
 
-    plt.ylabel(labels["e1"] + " position (km)")
+            # Plot e2 pos component
+            if log_scale:
+                ax_y_pos.semilogy(epoch,3 * sd_states[:,1],'.')
+            else:
+                ax_y_pos.plot(epoch,3 * sd_states[:,1],'.')
 
-    # Plot e2 pos component
-    plt.subplot(323, sharex=ax1)
-    for case in range(len(covs)):
-        if log_scale:
-            plt.semilogy(epochs[case],3 * sd_states_all_cases[case][:,1],'.')
-        else:
-            plt.plot(epochs[case],3 * sd_states_all_cases[case][:,1],'.')
+            # Plot e3 pos component
+            if log_scale:
+                ax_z_pos.semilogy(epoch,3 * sd_states[:,2],'.')
+            else:
+                ax_z_pos.plot(epoch,3 * sd_states[:,2],'.')
 
-    plt.ylabel(labels["e2"] + " position (km)")
+           
+            # Plot e1 vel component
+            if log_scale:
+                ax_x_vel.semilogy(epoch,3 * sd_states[:,3],'.')
+            else:
+                ax_x_vel.plot(epoch,3 * sd_states[:,3],'.')
+            
+            # Plot e2 vel component
+            if log_scale:
+                ax_y_vel.semilogy(epoch,3 * sd_states[:,4],'.')
+            else:
+                ax_y_vel.plot(epoch,3 * sd_states[:,4],'.')
+            
+            # Plot e3 vel component
+            if log_scale:
+                ax_z_vel.semilogy(epoch,3 * sd_states[:,5],'.')
+            else:
+                ax_z_vel.plot(epoch,3 * sd_states[:,5],'.')
 
-    # Plot e3 pos component
-    plt.subplot(325, sharex=ax1)
-    for case in range(len(covs)):
-        if log_scale:
-            plt.semilogy(epochs[case],3 * sd_states_all_cases[case][:,2],'.')
-        else:
-            plt.plot(epochs[case],3 * sd_states_all_cases[case][:,2],'.')
-
-    plt.xlabel("Days since Epoch")
-
-    plt.ylabel(labels["e3"] + " position (km)")
-
-    # Plot e1 vel component
-    plt.subplot(322, sharex=ax1)
-    for case in range(len(covs)):
-        if log_scale:
-            plt.semilogy(epochs[case],3 * sd_states_all_cases[case][:,3],'.')
-        else:
-            plt.plot(epochs[case],3 * sd_states_all_cases[case][:,3],'.')
-
-        
-    plt.ylabel(labels["e1"] + " velocity (km/s)")
-    
-    # Plot e2 vel component
-    plt.subplot(324, sharex=ax1)
-    for case in range(len(covs)):
-        if log_scale:
-            plt.semilogy(epochs[case],3 * sd_states_all_cases[case][:,4],'.')
-        else:
-            plt.plot(epochs[case],3 * sd_states_all_cases[case][:,4],'.')
-
-
-    plt.ylabel(labels["e2"] + " velocity (km/s)")
-    
-    # Plot e3 vel component
-    plt.subplot(326, sharex=ax1)
-    for case in range(len(covs)):
-        if log_scale:
-            plt.semilogy(epochs[case],3 * sd_states_all_cases[case][:,5],'.')
-        else:
-            plt.plot(epochs[case],3 * sd_states_all_cases[case][:,5],'.')
-
-
-    plt.ylabel(labels["e3"] + " velocity (km/s)")
-
-    plt.xlabel("Days since Epoch")
 
     if outputname is not None:
         plt.savefig("stacked_covariances.pdf")
