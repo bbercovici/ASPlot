@@ -212,9 +212,6 @@ def plot_everything(epoch,labels,deviations = None,cov = None,mnvr = None, savep
         sd_states = [np.sqrt(np.diag(np.reshape(cov[i,:],[N,N]))) for i in range(epoch.shape[0])]
         sd_states = np.vstack(sd_states)
 
-    for i in range(sd_states.shape[0]):
-        print sd_states[i,3]
-
     # Position
     if deviations is not None and cov is None:
         plt.plot(epoch,deviations[:,0],label = labels["e1"])
