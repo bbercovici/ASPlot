@@ -359,6 +359,8 @@ def plot_covariance_schedule(inputfolder,convert_to_RTN,log_scale = True,outputn
     epochs = []
     sd_states_all_cases = []
 
+    labels =  create_labels(convert_to_RTN)
+
     # Creating the subplots
     ax_x_pos = plt.subplot(321)
     plt.ylabel(labels["e1"] + " position (km)")
