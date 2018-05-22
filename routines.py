@@ -53,7 +53,7 @@ def load_data(inputpath,only_covs = False,subsampling = 1.):
 
     epoch = np.loadtxt(inputpath + "epoch.txt")
     p = (int)(subsampling * len(epoch))
-    epoch = epoch[0:p,:]
+    epoch = np.copy(epoch[0:p])
     cov = np.loadtxt(inputpath + "cov.txt")[0:p,:]
     ref_traj = np.loadtxt(inputpath + "state.txt")[0:p,:]
 
