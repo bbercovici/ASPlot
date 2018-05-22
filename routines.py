@@ -493,7 +493,8 @@ def plot_covariance_schedule_from_enclosing_folder(inputfolder,convert_to_RTN,lo
         plt.show()
 
 
-plot_results("/Users/bbercovici/Desktop/AFSCN_DSN_8_HRS_R_4_RR_7/",convert_to_RTN = False,savepath = None,skip = 1,title  = "AFSCN_DSN_8_HRS_R_4_RR_7")
+if sys.platform is not "linux":
+    plot_results("/Users/bbercovici/Desktop/AFSCN_DSN_8_HRS_R_4_RR_7/",convert_to_RTN = False,savepath = None,skip = 1,title  = "AFSCN_DSN_8_HRS_R_4_RR_7")
 
 
 
