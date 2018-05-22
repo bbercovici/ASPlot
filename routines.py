@@ -93,7 +93,7 @@ Inputs:
 - savepath : path to folder where to save generated plots, must be terminated by "/". If None provided then will just 
 show plots
 - skip : determines the number of measurements to skip between two consecutive kept measurements (skip == 1: no discarding)
-
+- log_scale : true if results must be shown in logarithm space
 '''
 def plot_results_from_enclosing_folder(inputfolder,convert_to_RTN = False,savepath = None,skip = 1):
 
@@ -117,7 +117,7 @@ show plots
 - skip : determines the number of measurements to skip between two consecutive kept measurements (skip == 1: no discarding)
 
 '''
-def plot_results(inputpath,convert_to_RTN = False,savepath = None,skip = 1,title = None):
+def plot_results(inputpath,convert_to_RTN = False,savepath = None,skip = 1,title = None,log_scale = False):
 
     epoch,stm,cov,deviations,ref_traj,mnvr = load_data(inputpath,only_covs = True,skip = skip)
 
@@ -129,7 +129,7 @@ def plot_results(inputpath,convert_to_RTN = False,savepath = None,skip = 1,title
     labels = create_labels(convert_to_RTN)
 
     # The state deviations are plotted along with the covariances
-    plot_everything(epoch,labels,None,cov,mnvr,savepath,title)
+    plot_everything(epoch,labels,None,cov,mnvr,savepath,title,log_scale)
 
 
 '''
@@ -195,8 +195,10 @@ Inputs:
 - cov : np.arrays of covariances on state errors (pxN) (pos_x,pos_y,pos_z,vel_x,vel_y,vel_z,mass,Cr). Position/velocities in EME2000 (km,km/s)
 - savepath : path to folder where to save generated plots, must be terminated by "/". If None provided then will just 
 show plots
+- title : title to be added to each plot
+- log_scale : true if results must be shown in logarithm space
 '''
-def plot_everything(epoch,labels,deviations = None,cov = None,mnvr = None, savepath = None,title = None):
+def plot_everything(epoch,labels,deviations = None,cov = None,mnvr = None, savepath = None,title = None,log_scale = False):
 
     # Shifting the epoch
     if mnvr is not None:
@@ -217,29 +219,47 @@ def plot_everything(epoch,labels,deviations = None,cov = None,mnvr = None, savep
         sd_states = np.vstack(sd_states)
 
     # Position
-    if deviations is not None and cov is None:
-        plt.plot(epoch,deviations[:,0],label = labels["e1"])
-        plt.plot(epoch,deviations[:,1],label = labels["e2"])
-        plt.plot(epoch,deviations[:,2],label = labels["e3"])
-    elif cov is not None and deviations is None:
-        plt.plot(epoch,3 * sd_states[:,0] ,".",label = labels["e1"])
-        plt.plot(epoch,3 * sd_states[:,1] ,".",label = labels["e2"])
-        plt.plot(epoch,3 * sd_states[:,2] ,".",label = labels["e3"])
-        
-    else:
-        plt.plot(epoch,deviations[:,0],label = labels["e1"])
-        plt.plot(epoch,deviations[:,1],label = labels["e2"])
-        plt.plot(epoch,deviations[:,2],label = labels["e3"])
-        plt.gca().set_color_cycle(None)
+    if log_scale:
+        if deviations is not None and cov is None:
+            plt.semilogy(epoch,deviations[:,0],label = labels["e1"])
+            plt.semilogy(epoch,deviations[:,1],label = labels["e2"])
+            plt.semilogy(epoch,deviations[:,2],label = labels["e3"])
+        elif cov is not None and deviations is None:
+            plt.semilogy(epoch,3 * sd_states[:,0] ,".",label = labels["e1"])
+            plt.semilogy(epoch,3 * sd_states[:,1] ,".",label = labels["e2"])
+            plt.semilogy(epoch,3 * sd_states[:,2] ,".",label = labels["e3"])
+            
+        else:
+            plt.semilogy(epoch,deviations[:,0],label = labels["e1"])
+            plt.semilogy(epoch,deviations[:,1],label = labels["e2"])
+            plt.semilogy(epoch,deviations[:,2],label = labels["e3"])
+            plt.gca().set_color_cycle(None)
 
-        plt.plot(epoch,3 * sd_states[:,0] ,".")
-        plt.plot(epoch,3 * sd_states[:,1] ,".")
-        plt.plot(epoch,3 * sd_states[:,2] ,".")
+            plt.semilogy(epoch,3 * sd_states[:,0] ,".")
+            plt.semilogy(epoch,3 * sd_states[:,1] ,".")
+            plt.semilogy(epoch,3 * sd_states[:,2] ,".")
+    else:
+        if deviations is not None and cov is None:
+            plt.plot(epoch,deviations[:,0],label = labels["e1"])
+            plt.plot(epoch,deviations[:,1],label = labels["e2"])
+            plt.plot(epoch,deviations[:,2],label = labels["e3"])
+        elif cov is not None and deviations is None:
+            plt.plot(epoch,3 * sd_states[:,0] ,".",label = labels["e1"])
+            plt.plot(epoch,3 * sd_states[:,1] ,".",label = labels["e2"])
+            plt.plot(epoch,3 * sd_states[:,2] ,".",label = labels["e3"])
+            
+        else:
+            plt.plot(epoch,deviations[:,0],label = labels["e1"])
+            plt.plot(epoch,deviations[:,1],label = labels["e2"])
+            plt.plot(epoch,deviations[:,2],label = labels["e3"])
+            plt.gca().set_color_cycle(None)
+
+            plt.plot(epoch,3 * sd_states[:,0] ,".")
+            plt.plot(epoch,3 * sd_states[:,1] ,".")
+            plt.plot(epoch,3 * sd_states[:,2] ,".")
 
     if mnvr is not None:
         plot_maneuvers(mnvr)
-
-    plt.ylim([- 0.01 * 10 * 1e-3,30 * 1e-3])
 
     plt.xlabel("Days since Epoch")
     plt.ylabel("Position (km)")
@@ -254,24 +274,44 @@ def plot_everything(epoch,labels,deviations = None,cov = None,mnvr = None, savep
     plt.clf()
 
     # Velocity
-    if deviations is not None and cov is None:
-        plt.plot(epoch,deviations[:,3],label = labels["e1"])
-        plt.plot(epoch,deviations[:,4],label = labels["e2"])
-        plt.plot(epoch,deviations[:,5],label = labels["e3"])
-    elif cov is not None and deviations is None:
-        plt.plot(epoch,3 * sd_states[:,3] ,".",label = labels["e1"])
-        plt.plot(epoch,3 * sd_states[:,4] ,".",label = labels["e2"])
-        plt.plot(epoch,3 * sd_states[:,5] ,".",label = labels["e3"])
-        
-    else:
-        plt.plot(epoch,deviations[:,3],label = labels["e1"])
-        plt.plot(epoch,deviations[:,4],label = labels["e2"])
-        plt.plot(epoch,deviations[:,5],label = labels["e3"])
-        plt.gca().set_color_cycle(None)
+    if log_scale:
+        if deviations is not None and cov is None:
+            plt.semilogy(epoch,deviations[:,3],label = labels["e1"])
+            plt.semilogy(epoch,deviations[:,4],label = labels["e2"])
+            plt.semilogy(epoch,deviations[:,5],label = labels["e3"])
+        elif cov is not None and deviations is None:
+            plt.semilogy(epoch,3 * sd_states[:,3] ,".",label = labels["e1"])
+            plt.semilogy(epoch,3 * sd_states[:,4] ,".",label = labels["e2"])
+            plt.semilogy(epoch,3 * sd_states[:,5] ,".",label = labels["e3"])
+            
+        else:
+            plt.semilogy(epoch,deviations[:,3],label = labels["e1"])
+            plt.semilogy(epoch,deviations[:,4],label = labels["e2"])
+            plt.semilogy(epoch,deviations[:,5],label = labels["e3"])
+            plt.gca().set_color_cycle(None)
 
-        plt.plot(epoch,3 * sd_states[:,3] ,".")
-        plt.plot(epoch,3 * sd_states[:,4] ,".")
-        plt.plot(epoch,3 * sd_states[:,5] ,".")
+            plt.semilogy(epoch,3 * sd_states[:,3] ,".")
+            plt.semilogy(epoch,3 * sd_states[:,4] ,".")
+            plt.semilogy(epoch,3 * sd_states[:,5] ,".")
+    else:
+        if deviations is not None and cov is None:
+            plt.plot(epoch,deviations[:,3],label = labels["e1"])
+            plt.plot(epoch,deviations[:,4],label = labels["e2"])
+            plt.plot(epoch,deviations[:,5],label = labels["e3"])
+        elif cov is not None and deviations is None:
+            plt.plot(epoch,3 * sd_states[:,3] ,".",label = labels["e1"])
+            plt.plot(epoch,3 * sd_states[:,4] ,".",label = labels["e2"])
+            plt.plot(epoch,3 * sd_states[:,5] ,".",label = labels["e3"])
+        
+        else:
+            plt.plot(epoch,deviations[:,3],label = labels["e1"])
+            plt.plot(epoch,deviations[:,4],label = labels["e2"])
+            plt.plot(epoch,deviations[:,5],label = labels["e3"])
+            plt.gca().set_color_cycle(None)
+
+            plt.plot(epoch,3 * sd_states[:,3] ,".")
+            plt.plot(epoch,3 * sd_states[:,4] ,".")
+            plt.plot(epoch,3 * sd_states[:,5] ,".")
         
 
     
@@ -281,8 +321,6 @@ def plot_everything(epoch,labels,deviations = None,cov = None,mnvr = None, savep
     plt.xlabel("Days since Epoch")
     plt.ylabel("Velocity (km/s)")
     plt.title(title)
-
-    plt.ylim([-0.01 * 0.5 * 1e-6,3 * 0.5 * 1e-6])
 
     plt.gca().yaxis.set_major_formatter(mtick.FormatStrFormatter('%.0e'))
 
@@ -298,53 +336,53 @@ def plot_everything(epoch,labels,deviations = None,cov = None,mnvr = None, savep
     plt.clf()
 
 
-    # Mass
-    if deviations is not None :
-        plt.plot(epoch,deviations[:,6])
-    if cov is not None:
-        plt.gca().set_color_cycle(None)
+    # # Mass
+    # if deviations is not None :
+    #     plt.plot(epoch,deviations[:,6])
+    # if cov is not None:
+    #     plt.gca().set_color_cycle(None)
 
-        plt.plot(epoch,3 * sd_states[:,6] ,".")
-        plt.gca().set_color_cycle(None)
-        plt.plot(epoch,- 3 * sd_states[:,6] ,".")
+    #     plt.plot(epoch,3 * sd_states[:,6] ,".")
+    #     plt.gca().set_color_cycle(None)
+    #     plt.plot(epoch,- 3 * sd_states[:,6] ,".")
     
-    plt.xlabel("Days since Epoch")
-    plt.ylabel("Mass (kg)")
-    plt.gca().yaxis.set_major_formatter(mtick.FormatStrFormatter('%.0e'))
-    plt.legend(loc = "best")
-    plt.tight_layout()
+    # plt.xlabel("Days since Epoch")
+    # plt.ylabel("Mass (kg)")
+    # plt.gca().yaxis.set_major_formatter(mtick.FormatStrFormatter('%.0e'))
+    # plt.legend(loc = "best")
+    # plt.tight_layout()
 
-    if savepath is None:
-        plt.show()
-    else:
-        plt.savefig(savepath + "mass.pdf")
+    # if savepath is None:
+    #     plt.show()
+    # else:
+    #     plt.savefig(savepath + "mass.pdf")
 
-    plt.clf()
+    # plt.clf()
 
-    # Cr
-    if deviations is not None :
-        plt.plot(epoch,deviations[:,7])
-    if cov is not None:
-        plt.gca().set_color_cycle(None)
+    # # Cr
+    # if deviations is not None :
+    #     plt.plot(epoch,deviations[:,7])
+    # if cov is not None:
+    #     plt.gca().set_color_cycle(None)
 
-        plt.plot(epoch,3 * sd_states[:,7] ,".")
-        plt.gca().set_color_cycle(None)
-        plt.plot(epoch,- 3 * sd_states[:,7] ,".")
+    #     plt.plot(epoch,3 * sd_states[:,7] ,".")
+    #     plt.gca().set_color_cycle(None)
+    #     plt.plot(epoch,- 3 * sd_states[:,7] ,".")
    
 
-    plt.xlabel("Days since Epoch")
-    plt.ylabel("Cr (-)")
-    plt.gca().yaxis.set_major_formatter(mtick.FormatStrFormatter('%.0e'))
+    # plt.xlabel("Days since Epoch")
+    # plt.ylabel("Cr (-)")
+    # plt.gca().yaxis.set_major_formatter(mtick.FormatStrFormatter('%.0e'))
 
-    plt.legend(loc = "best")
-    plt.tight_layout()
+    # plt.legend(loc = "best")
+    # plt.tight_layout()
 
-    if savepath is None:
-        plt.show()
-    else:
-        plt.savefig(savepath + "Cr.pdf")
+    # if savepath is None:
+    #     plt.show()
+    # else:
+    #     plt.savefig(savepath + "Cr.pdf")
 
-    plt.clf()
+    # plt.clf()
 
 
 '''
