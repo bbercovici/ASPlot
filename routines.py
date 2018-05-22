@@ -1,4 +1,5 @@
 import matplotlib
+import sys
 import os
 # Switching backend on fortuna
 if sys.platform is "linux":
