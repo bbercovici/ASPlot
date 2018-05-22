@@ -436,7 +436,7 @@ def plot_covariance_schedule(inputfolder,convert_to_RTN,log_scale = True,outputn
 
 
 
-plot_results("outputs/case_3/",True)
+# plot_results("outputs/case_3/",True)
 
 
 
