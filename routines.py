@@ -330,7 +330,7 @@ Inputs:
 
 '''
 
-def plot_covariance_schedule(inputfolder,convert_to_RTN,log_scale = True):
+def plot_covariance_schedule(inputfolder,convert_to_RTN,log_scale = True,outputname = None):
     covs = []
 
     for folder in os.walk(inputfolder) :
@@ -428,7 +428,11 @@ def plot_covariance_schedule(inputfolder,convert_to_RTN,log_scale = True):
     plt.ylabel(labels["e3"] + " velocity (km/s)")
 
     plt.xlabel("Days since Epoch")
-    plt.show()
+
+    if outputname is not None:
+        plt.savefig("stacked_covariances.pdf")
+    else:
+        plt.show()
 
 
 
