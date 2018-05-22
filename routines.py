@@ -13,6 +13,9 @@ import os
 # files can be retrieved from 
 # scp -r bebe0705@fortuna.colorado.edu:/home/anfr8485/FALCON/Filter/output/ outputs/
 
+
+
+
 '''
 Returns direction spanning input vector
 Inputs:
@@ -105,6 +108,7 @@ def convert2RTN(cov,deviations,ref_traj):
         N = (int)(np.sqrt(cov.shape[1]))
 
     cov_RTN = np.zeros(cov.shape)
+
 
     for i in range (ref_traj.shape[0]):
 
@@ -338,13 +342,14 @@ Inputs:
 
 def plot_covariance_schedule(inputfolder,convert_to_RTN,log_scale = True,outputname = None):
     covs = []
+    cases = []
 
     for folder in os.walk(inputfolder) :
         for subfolder in folder[1]:
             foldername = folder[0] + subfolder + "/"
             epoch,stm,cov,deviations,ref_traj,mnvr = load_data(foldername)
             covs += [cov]
-
+            cases += [subfolder]
     labels = create_labels(convert_to_RTN)
 
 
@@ -353,6 +358,7 @@ def plot_covariance_schedule(inputfolder,convert_to_RTN,log_scale = True,outputn
     sd_states_all_cases = []
 
     for case in range(len(covs)):
+        print("Reading case " + cases[case])
         
         if convert_to_RTN:
             dummy = None
