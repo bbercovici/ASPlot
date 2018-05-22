@@ -42,19 +42,20 @@ Inputs:
 Ouputs:
 ------
 - epoch : vector of times (days)
-- stm : vector of flattened STM 
+- stm : vector of flattened STM s
 - cov : vector of flattened covariances
 - deviations : vector of state deviations
 - ref_traj : vector of reference trajectory states
 - mnvr : vector of maneuver epochs
 
 '''
-def load_data(inputpath,only_covs = False,skip = 1.):
+def load_data(inputpath,only_covs = False,skip = 1):
 
     epoch = np.loadtxt(inputpath + "epoch.txt")
 
     kept_indices = range(0,len(epoch),skip)
 
+    print("Kept " + str(len(kept_indices)) + " observations from " + str(len(epoch)))
 
     epoch = np.copy(epoch[kept_indices])
 
@@ -454,7 +455,7 @@ def plot_covariance_schedule(inputfolder,convert_to_RTN,log_scale = True,outputn
 
 
     if outputname is not None:
-        plt.savefig("stacked_covariances.pdf")
+        plt.savefig(outputname)
     else:
         plt.show()
 
