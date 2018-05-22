@@ -213,12 +213,12 @@ def plot_everything(epoch,labels,deviations = None,cov = None,mnvr = None, savep
 
     plt.xlabel("Days since Epoch")
     plt.ylabel("Position (km)")
-    plt.legend(loc = "center right",bbox_to_anchor = (1.2,0.5))
+    plt.legend(loc = "center right",bbox_to_anchor = (1.25,0.5))
     # plt.tight_layout()
     if savepath is None:
         plt.show()
     else:
-        plt.savefig(savepath + "positions.pdf")
+        plt.savefig(savepath + "positions.pdf",bbox_inches='tight')
 
     plt.clf()
 
@@ -253,14 +253,14 @@ def plot_everything(epoch,labels,deviations = None,cov = None,mnvr = None, savep
 
     plt.gca().yaxis.set_major_formatter(mtick.FormatStrFormatter('%.0e'))
 
-    plt.legend(loc = "center right",bbox_to_anchor = (1.2,0.5))
+    plt.legend(loc = "center right",bbox_to_anchor = (1.25,0.5))
     
     # plt.tight_layout()
 
     if savepath is None:
         plt.show()
     else:
-        plt.savefig(savepath + "velocities.pdf")
+        plt.savefig(savepath + "velocities.pdf",bbox_inches='tight')
 
     plt.clf()
 
