@@ -37,6 +37,7 @@ Loads the data from the specified directory
 Inputs:
 ------
 - inputpath: directory from where to pull data
+- only_covs : if true, will only load epoch, cov and ref_traj
 Ouputs:
 ------
 - epoch : vector of times (days)
@@ -47,13 +48,19 @@ Ouputs:
 - mnvr : vector of maneuver epochs
 
 '''
-def load_data(inputpath):
-
+def load_data(inputpath,only_covs = False):
+    
     epoch = np.loadtxt(inputpath + "epoch.txt")
-    stm = np.loadtxt(inputpath + "stm.txt")
     cov = np.loadtxt(inputpath + "cov.txt")
-    deviations = np.loadtxt(inputpath + "dev.txt")
     ref_traj = np.loadtxt(inputpath + "state.txt")
+
+    if not only_covs:
+        stm = np.loadtxt(inputpath + "stm.txt")
+        deviations = np.loadtxt(inputpath + "dev.txt")
+    else:
+        stm = None
+        deviations = None
+
     mnvr = np.loadtxt(inputpath + "mnvr.txt")
 
     return epoch,stm,cov,deviations,ref_traj,mnvr
@@ -347,7 +354,7 @@ def plot_covariance_schedule(inputfolder,convert_to_RTN,log_scale = True,outputn
     for folder in os.walk(inputfolder) :
         for subfolder in folder[1]:
             foldername = folder[0] + subfolder + "/"
-            epoch,stm,cov,deviations,ref_traj,mnvr = load_data(foldername)
+            epoch,stm,cov,deviations,ref_traj,mnvr = load_data(foldername,only_covs = True)
             covs += [cov]
             cases += [subfolder]
     labels = create_labels(convert_to_RTN)
@@ -359,6 +366,8 @@ def plot_covariance_schedule(inputfolder,convert_to_RTN,log_scale = True,outputn
 
     for case in range(len(covs)):
         print("Reading case " + cases[case])
+        print(covs[case].shape)
+        print(ref_traj.shape)
         
         if convert_to_RTN:
             dummy = None
