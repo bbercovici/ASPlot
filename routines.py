@@ -173,8 +173,6 @@ def plot_everything(epoch,labels,deviations = None,cov = None,mnvr = None, savep
         mnvr = np.copy(mnvr - epoch[0])
     epoch = np.copy(epoch - epoch[0])
 
-
-
     # Extracting state dimension
     if deviations is not None:
         N = deviations.shape[1]
@@ -210,6 +208,8 @@ def plot_everything(epoch,labels,deviations = None,cov = None,mnvr = None, savep
 
     if mnvr is not None:
         plot_maneuvers(mnvr)
+
+    plt.ylim([0,10 * 1e-3])
 
     plt.xlabel("Days since Epoch")
     plt.ylabel("Position (km)")
@@ -249,6 +249,8 @@ def plot_everything(epoch,labels,deviations = None,cov = None,mnvr = None, savep
 
     plt.xlabel("Days since Epoch")
     plt.ylabel("Velocity (km/s)")
+    plt.ylim([0,0.5 * 1e-6])
+
     plt.gca().yaxis.set_major_formatter(mtick.FormatStrFormatter('%.0e'))
 
     plt.legend(loc = "best")
