@@ -350,6 +350,8 @@ Inputs:
 def plot_covariance_schedule(inputfolder,convert_to_RTN,log_scale = True,outputname = None):
     covs = []
     cases = []
+    ref_trajs = []
+
 
     for folder in os.walk(inputfolder) :
         for subfolder in folder[1]:
@@ -357,6 +359,8 @@ def plot_covariance_schedule(inputfolder,convert_to_RTN,log_scale = True,outputn
             epoch,stm,cov,deviations,ref_traj,mnvr = load_data(foldername,only_covs = True)
             covs += [cov]
             cases += [subfolder]
+            ref_trajs += [ref_traj]
+
     labels = create_labels(convert_to_RTN)
 
 
@@ -371,7 +375,7 @@ def plot_covariance_schedule(inputfolder,convert_to_RTN,log_scale = True,outputn
         
         if convert_to_RTN:
             dummy = None
-            covs[case],dummy = convert2RTN(covs[case],dummy,ref_traj)
+            covs[case],dummy = convert2RTN(covs[case],dummy,ref_trajs[case])
 
         sd_states = [np.sqrt(np.diag(np.reshape(covs[case][i,:],[N,N]))) for i in range(epoch.shape[0])]
         sd_states = np.vstack(sd_states)
