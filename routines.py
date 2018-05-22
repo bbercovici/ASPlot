@@ -401,6 +401,8 @@ def plot_covariance_schedule(inputfolder,convert_to_RTN,log_scale = True,outputn
 
             # Loading
             epoch,stm,cov,deviations,ref_traj,mnvr = load_data(foldername,only_covs = True,skip = skip)
+            epoch = epoch - epoch[0]
+
 
             # Converting
             if convert_to_RTN:
