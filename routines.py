@@ -114,51 +114,6 @@ def load_data(inputpath,only_covs = False,kept = -1):
 
 
 
-
-'''
-Generates results plots for all simulation cases in the enclosing folder
-Inputs:
--------
-- inputpath : path to directory where epoch.txt, cov.txt, state.txt , ref_traj.txt and stm.txt are
-- convert_to_RTN : True if the provided state/covariances must be expressed in the RTN frame, False otherwise
-- savepath : path to folder where to save generated plots, must be terminated by "/". If None provided then will just 
-show plots
-- kept : determines the number of measurements to kept between two consecutive kept measurements (kept == -1: no discarding)
-- log_scale : true if results must be shown in logarithm space
-'''
-def plot_results_from_enclosing_folder(inputfolder,convert_to_RTN = False,savepath = None,kept = -1,log_scale = True,mltpro = False):
-
-
-    inputfolders = []
-    savepaths = []
-    converts = []
-    kepts = []
-    titles = []
-    log_scales = []
-
-    for folder in os.walk(inputfolder) :
-        for subfolder in folder[1]:
-            foldername = folder[0] + subfolder + "/"
-            if mltpro is False:
-                print("Loading case " + subfolder)
-                plot_results(foldername,convert_to_RTN = convert_to_RTN,savepath = foldername,kept = kept,title = subfolder,log_scale = log_scale)
-            else:
-                inputfolders += [foldername]
-                converts += [convert_to_RTN]
-                savepaths += [foldername]
-                kepts += [kept]
-                titles += [subfolder]
-                log_scales += [log_scale]
-
-
-
-
-
-    if mltpro:
-        pool = multiprocessing.Pool()
-        input = zip(inputfolders, converts,savepaths,kepts,titles,log_scales)
-        pool.map(plot, input)
-
 '''
 Generates results plots from files in provided directory
 Inputs:
@@ -166,7 +121,7 @@ Inputs:
 - args : tuple of inputs
 
 '''
-def plot_results(args):
+def plot_results_mlp(args):
 
     inputpath,convert_to_RTN,savepath,kept,title,log_scale = args 
 
@@ -181,10 +136,6 @@ def plot_results(args):
 
     # The state deviations are plotted along with the covariances
     plot_everything(epoch,labels,None,cov,mnvr,savepath,title,log_scale)
-
-
-
-
 
 
 '''
@@ -613,6 +564,59 @@ def plot_covariance_schedule_from_enclosing_folder(inputfolder,convert_to_RTN,lo
         plt.savefig(outputname)
     else:
         plt.show()
+
+
+'''
+Generates results plots for all simulation cases in the enclosing folder
+Inputs:
+-------
+- inputpath : path to directory where epoch.txt, cov.txt, state.txt , ref_traj.txt and stm.txt are
+- convert_to_RTN : True if the provided state/covariances must be expressed in the RTN frame, False otherwise
+- savepath : path to folder where to save generated plots, must be terminated by "/". If None provided then will just 
+show plots
+- kept : determines the number of measurements to kept between two consecutive kept measurements (kept == -1: no discarding)
+- log_scale : true if results must be shown in logarithm space
+'''
+def plot_results_from_enclosing_folder(inputfolder,convert_to_RTN = False,savepath = None,kept = -1,log_scale = True,mltpro = False):
+
+
+    inputfolders = []
+    savepaths = []
+    converts = []
+    kepts = []
+    titles = []
+    log_scales = []
+
+    for folder in os.walk(inputfolder) :
+        for subfolder in folder[1]:
+            foldername = folder[0] + subfolder + "/"
+            if mltpro is False:
+                print("Loading case " + subfolder)
+                plot_results(foldername,convert_to_RTN = convert_to_RTN,savepath = foldername,kept = kept,title = subfolder,log_scale = log_scale)
+            else:
+                inputfolders += [foldername]
+                converts += [convert_to_RTN]
+                savepaths += [foldername]
+                kepts += [kept]
+                titles += [subfolder]
+                log_scales += [log_scale]
+
+
+
+
+
+    if mltpro:
+        pool = multiprocessing.Pool()
+        input = zip(inputfolders, converts,savepaths,kepts,titles,log_scales)
+        pool.map(plot_results_mlp, input)
+
+
+
+
+
+
+
+
 
 
 if sys.platform != "linux":
