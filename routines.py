@@ -26,6 +26,8 @@
 import matplotlib
 import sys
 import os
+import multiprocessing
+
 # Switching backend on fortuna
 print ("Platform : " + sys.platform)
 if sys.platform == "linux":
@@ -91,7 +93,7 @@ def load_data(inputpath,only_covs = False,kept = -1):
         kept_indices = np.linspace(0,len(epoch) -1 ,len(epoch),dtype = int)
 
 
-    print("Kept " + str(len(kept_indices)) + " observations from " + str(len(epoch)))
+    print("- Kept " + str(len(kept_indices)) + " observations from " + str(len(epoch)))
 
     epoch = np.copy(epoch[kept_indices])
 
@@ -124,13 +126,65 @@ show plots
 - kept : determines the number of measurements to kept between two consecutive kept measurements (kept == -1: no discarding)
 - log_scale : true if results must be shown in logarithm space
 '''
-def plot_results_from_enclosing_folder(inputfolder,convert_to_RTN = False,savepath = None,kept = -1,log_scale = True):
+def plot_results_from_enclosing_folder(inputfolder,convert_to_RTN = False,savepath = None,kept = -1,log_scale = True,mltpro = False):
+
+
+    inputfolders = []
+    savepaths = []
+    converts = []
+    kepts = []
+    titles = []
+    log_scales = []
 
     for folder in os.walk(inputfolder) :
         for subfolder in folder[1]:
             foldername = folder[0] + subfolder + "/"
-            print("Loading case " + subfolder)
-            plot_results(foldername,convert_to_RTN = convert_to_RTN,savepath = foldername,kept = kept,title = subfolder,log_scale = log_scale)
+            if mltpro is False:
+                print("Loading case " + subfolder)
+                plot_results(foldername,convert_to_RTN = convert_to_RTN,savepath = foldername,kept = kept,title = subfolder,log_scale = log_scale)
+            else:
+                inputfolders += [foldername]
+                converts += [convert_to_RTN]
+                savepaths += [foldername]
+                kepts += [kept]
+                titles += [subfolder]
+                log_scales += [log_scale]
+
+
+
+
+
+    if mltpro:
+        pool = multiprocessing.Pool()
+        input = zip(foldernames, converts,savepaths,kepts,titles,log_scales)
+        pool.map(plot, input)
+
+'''
+Generates results plots from files in provided directory
+Inputs:
+-------
+- args : tuple of inputs
+
+'''
+def plot_results(args):
+
+    inputpath,convert_to_RTN,savepath,kept,title,log_scale = args 
+
+    epoch,stm,cov,deviations,ref_traj,mnvr = load_data(inputpath,only_covs = True,kept = kept)
+
+    # If need be, state deviations and covariances are converted to the RTN frame
+    if convert_to_RTN :
+        cov,deviations = convert2RTN(cov,deviations,ref_traj)
+
+    # Plot labels are created
+    labels = create_labels(convert_to_RTN)
+
+    # The state deviations are plotted along with the covariances
+    plot_everything(epoch,labels,None,cov,mnvr,savepath,title,log_scale)
+
+
+
+
 
 
 '''
