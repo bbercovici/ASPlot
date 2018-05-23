@@ -15,9 +15,13 @@ def generate_latex_skeleton(inputfolder,outputpath):
         for subfolder in folder[1]:
             foldername = folder[0] + subfolder + "/"
 
-            latex_calls += r"\subsection{$\mathrm{" + subfolder + r"}}\n"
-            latex_calls += [r"\includegraphics[width = \textwidth]{" + foldername + r"positions.pdf" + r"}\n"]
-            latex_calls += [r"\includegraphics[width = \textwidth]{" + foldername + r"velocities.pdf" + r"}\n"]
+            latex_calls += r"\subsection{$\mathrm{" + subfolder + r"}$}"
+            latex_calls += "\n"
+            latex_calls += [r"\includegraphics[width = \textwidth]{" + foldername + r"positions.pdf" + r"}"]
+            latex_calls += "\n"
+            latex_calls += [r"\includegraphics[width = \textwidth]{" + foldername + r"velocities.pdf" + r"}"]
+            latex_calls += "\n"
+
 
 
     text_file = open(outputpath, "w")
