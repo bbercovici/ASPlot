@@ -413,7 +413,7 @@ def plot_maneuvers(mnvr):
 
     labels = ["TCM_1","TCM_2","TCM_3","GSI_1","GSI_2","GSI_3","GSI_4"]
 
-    cmap =cmaps.get_cmap('Spectral')
+    cmap =cmaps.get_cmap('viridis')
 
     for i in range(mnvr.shape[0]):
         plt.gca().axvline(mnvr[i],label = labels[i],linestyle = '--',color = cmap(float(i)/(mnvr.shape[0] -1 )))
