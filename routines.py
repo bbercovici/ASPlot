@@ -156,7 +156,7 @@ def plot_results_from_enclosing_folder(inputfolder,convert_to_RTN = False,savepa
 
     if mltpro:
         pool = multiprocessing.Pool()
-        input = zip(foldernames, converts,savepaths,kepts,titles,log_scales)
+        input = zip(inputfolders, converts,savepaths,kepts,titles,log_scales)
         pool.map(plot, input)
 
 '''
