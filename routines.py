@@ -101,7 +101,7 @@ def plot_results_from_enclosing_folder(inputfolder,convert_to_RTN = False,savepa
         for subfolder in folder[1]:
             foldername = folder[0] + subfolder + "/"
             print("Loading case " + subfolder)
-            plot_results(inputfolder,convert_to_RTN = convert_to_RTN,savepath = foldername,skip = skip,title = subfolder,log_scale = log_scale)
+            plot_results(foldername,convert_to_RTN = convert_to_RTN,savepath = foldername,skip = skip,title = subfolder,log_scale = log_scale)
 
 
 
