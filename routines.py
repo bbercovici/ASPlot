@@ -104,8 +104,6 @@ def plot_results_from_enclosing_folder(inputfolder,convert_to_RTN = False,savepa
             plot_results(foldername,convert_to_RTN = convert_to_RTN,savepath = foldername,skip = skip,title = subfolder,log_scale = log_scale)
 
 
-
-
 '''
 Generates results plots from files in provided directory
 Inputs:
