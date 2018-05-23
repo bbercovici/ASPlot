@@ -1,18 +1,12 @@
 import os
 
-
-# I need to generate the correct calls to 
-# \includegraphics from here
-
-
-
-
 '''
 Inputs:
 -------
-- inputfolder : path to folder enclosing all saved 
+- inputfolder : path to folder enclosing all saved cases
+- outputpath : path to output tex file (ex : "figures.tex") 
 '''
-def generate_latex_skeleton(inputfolder):
+def generate_latex_skeleton(inputfolder,outputpath):
 
 
 	latex_calls = []
@@ -26,7 +20,7 @@ def generate_latex_skeleton(inputfolder):
             latex_calls += ["\includegraphics[width = \textwidth]{" + foldername + "velocities.pdf" + "}\n"]
 
 
-    text_file = open("test.tex", "w")
+    text_file = open(outputpath, "w")
     for line in latex_calls:
 		text_file.write(line)
 	text_file.close()
