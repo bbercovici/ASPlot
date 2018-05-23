@@ -95,13 +95,13 @@ show plots
 - skip : determines the number of measurements to skip between two consecutive kept measurements (skip == 1: no discarding)
 - log_scale : true if results must be shown in logarithm space
 '''
-def plot_results_from_enclosing_folder(inputfolder,convert_to_RTN = False,savepath = None,skip = 1):
+def plot_results_from_enclosing_folder(inputfolder,convert_to_RTN = False,savepath = None,skip = 1,log_scale = True):
 
     for folder in os.walk(inputfolder) :
         for subfolder in folder[1]:
             foldername = folder[0] + subfolder + "/"
             print("Loading case " + subfolder)
-            plot_results(inputpath,convert_to_RTN = convert_to_RTN,savepath = foldername,skip = skip,title = subfolder)
+            plot_results(inputfolder,convert_to_RTN = convert_to_RTN,savepath = foldername,skip = skip,title = subfolder,log_scale = log_scale)
 
 
 
@@ -535,7 +535,8 @@ def plot_covariance_schedule_from_enclosing_folder(inputfolder,convert_to_RTN,lo
 
 
 if sys.platform != "linux":
-    plot_results("/Users/bbercovici/Desktop/AFSCN_DSN_8_HRS_R_4_RR_7/",convert_to_RTN = False,savepath = None,skip = 1,title  = "AFSCN_DSN_8_HRS_R_4_RR_7")
+    plot_results("/Users/bbercovici/Desktop/AFSCN_DSN_8_HRS_R_4_RR_7/",convert_to_RTN = False,
+        savepath = None,skip = 1,title  = "AFSCN_DSN_8_HRS_R_4_RR_7")
 
 
 
