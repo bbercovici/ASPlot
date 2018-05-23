@@ -1,3 +1,28 @@
+# MIT License
+
+# Copyright (c) 2018 Benjamin Bercovici and Jay McMahon
+
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+
+
+
 import matplotlib
 import sys
 import os
@@ -45,7 +70,7 @@ Inputs:
 ------
 - inputpath: directory from where to pull data
 - only_covs : if true, will only load epoch, cov and ref_traj
-- skip : determines the number of measurements to skip between two consecutive kept measurements (skip == 1: no discarding)
+- kept : determines the number of measurements to kept between two consecutive kept measurements (kept == -1: no discarding)
 Ouputs:
 ------
 - epoch : vector of times (days)
@@ -56,13 +81,17 @@ Ouputs:
 - mnvr : vector of maneuver epochs
 
 '''
-def load_data(inputpath,only_covs = False,skip = 1):
+def load_data(inputpath,only_covs = False,kept = -1):
 
     epoch = np.loadtxt(inputpath + "epoch.txt")
 
-    kept_indices = range(0,len(epoch),skip)
+    if kept > 0:
+        kept_indices = np.linspace(0,len(epoch) -1 ,kept,dtype = int)
+    else:
+        kept_indices = np.linspace(0,len(epoch) -1 ,len(epoch),dtype = int)
 
-    print("Kept " + str(len(kept_indices)) + " observations from " + str(len(epoch)) + ", skipping " + str(skip))
+
+    print("Kept " + str(len(kept_indices)) + " observations from " + str(len(epoch)))
 
     epoch = np.copy(epoch[kept_indices])
 
@@ -92,16 +121,16 @@ Inputs:
 - convert_to_RTN : True if the provided state/covariances must be expressed in the RTN frame, False otherwise
 - savepath : path to folder where to save generated plots, must be terminated by "/". If None provided then will just 
 show plots
-- skip : determines the number of measurements to skip between two consecutive kept measurements (skip == 1: no discarding)
+- kept : determines the number of measurements to kept between two consecutive kept measurements (kept == -1: no discarding)
 - log_scale : true if results must be shown in logarithm space
 '''
-def plot_results_from_enclosing_folder(inputfolder,convert_to_RTN = False,savepath = None,skip = 1,log_scale = True):
+def plot_results_from_enclosing_folder(inputfolder,convert_to_RTN = False,savepath = None,kept = -1,log_scale = True):
 
     for folder in os.walk(inputfolder) :
         for subfolder in folder[1]:
             foldername = folder[0] + subfolder + "/"
             print("Loading case " + subfolder)
-            plot_results(foldername,convert_to_RTN = convert_to_RTN,savepath = foldername,skip = skip,title = subfolder,log_scale = log_scale)
+            plot_results(foldername,convert_to_RTN = convert_to_RTN,savepath = foldername,kept = kept,title = subfolder,log_scale = log_scale)
 
 
 '''
@@ -112,12 +141,12 @@ Inputs:
 - convert_to_RTN : True if the provided state/covariances must be expressed in the RTN frame, False otherwise
 - savepath : path to folder where to save generated plots, must be terminated by "/". If None provided then will just 
 show plots
-- skip : determines the number of measurements to skip between two consecutive kept measurements (skip == 1: no discarding)
+- kept : determines the number of measurements to kept between two consecutive kept measurements (kept == 1: no discarding)
 
 '''
-def plot_results(inputpath,convert_to_RTN = False,savepath = None,skip = 1,title = None,log_scale = False):
+def plot_results(inputpath,convert_to_RTN = False,savepath = None,kept = -1,title = None,log_scale = False):
 
-    epoch,stm,cov,deviations,ref_traj,mnvr = load_data(inputpath,only_covs = True,skip = skip)
+    epoch,stm,cov,deviations,ref_traj,mnvr = load_data(inputpath,only_covs = True,kept = kept)
 
     # If need be, state deviations and covariances are converted to the RTN frame
     if convert_to_RTN :
@@ -426,10 +455,10 @@ Inputs:
 - inputfolder : path to enclosing folder for all cases
 - convert_to_RTN : True if computed states must be converted to RTN
 - log_scale : True if covariances must be plotted in semilogy scale
-- skip : determines the number of measurements to skip between two consecutive kept measurements (skip == 1: no discarding)
+- kept : determines the number of measurements to kept between two consecutive kept measurements (kept == -1: no discarding)
 '''
 
-def plot_covariance_schedule_from_enclosing_folder(inputfolder,convert_to_RTN,log_scale = True,outputname = None,skip = 1):
+def plot_covariance_schedule_from_enclosing_folder(inputfolder,convert_to_RTN,log_scale = True,outputname = None,kept = - 1):
     covs = []
     cases = []
     ref_trajs = []
@@ -473,7 +502,7 @@ def plot_covariance_schedule_from_enclosing_folder(inputfolder,convert_to_RTN,lo
             print("Loading case " + subfolder)
 
             # Loading
-            epoch,stm,cov,deviations,ref_traj,mnvr = load_data(foldername,only_covs = True,skip = skip)
+            epoch,stm,cov,deviations,ref_traj,mnvr = load_data(foldername,only_covs = True,kept = kept)
             epoch = epoch - epoch[0]
 
 
@@ -534,7 +563,7 @@ def plot_covariance_schedule_from_enclosing_folder(inputfolder,convert_to_RTN,lo
 
 if sys.platform != "linux":
     plot_results("/Users/bbercovici/Desktop/AFSCN_DSN_8_HRS_R_4_RR_7/",convert_to_RTN = False,
-        savepath = None,skip = 1,title  = "AFSCN_DSN_8_HRS_R_4_RR_7")
+        savepath = None,kept = -1,title  = "AFSCN_DSN_8_HRS_R_4_RR_7")
 
 
 
