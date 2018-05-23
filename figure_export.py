@@ -25,10 +25,12 @@
 import os
 
 
-
 # The cleanest way to get this to work is probably to type something along the lines of 
-# rsync -r -R bebe0705@fortuna.colorado.edu:/home/anfr8485/FALCON/Filter/test/advspc_results_1/*/*.pdf folder-of-your-choice
-# and call generate_latex_skeleton with inputfolder == folder-of-your-choice
+# rsync -r -R bebe0705@fortuna.colorado.edu:/home/anfr8485/FALCON/Filter/test/advspc_results_1/*/*.pdf .
+# and call generate_latex_skeleton with inputfolder == "./home/anfr8485/FALCON/Filter/test/advspc_results_1/"
+# yes, you read this path right (rsync preserves the complete directory structure)
+
+# example: generate_latex_skeleton("/Users/bbercovici/GDrive/CUBoulder/Research/code/AS/home/anfr8485/FALCON/Filter/test/advspc_results_1","test.tex")
 
 
 '''
@@ -57,6 +59,8 @@ def generate_latex_skeleton(inputfolder,outputpath):
     for line in latex_calls:
         text_file.write(line)
     text_file.close()
+
+
 
 
 

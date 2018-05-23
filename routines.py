@@ -612,13 +612,6 @@ def plot_results_from_enclosing_folder(inputfolder,convert_to_RTN = False,savepa
 
 
 
-
-
-
-
-
-
-
 if sys.platform != "linux":
     plot_results("/Users/bbercovici/Desktop/AFSCN_DSN_8_HRS_R_4_RR_7/",convert_to_RTN = False,
         savepath = None,kept = -1,title  = "AFSCN_DSN_8_HRS_R_4_RR_7")
