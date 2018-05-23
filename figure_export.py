@@ -9,7 +9,7 @@ Inputs:
 def generate_latex_skeleton(inputfolder,outputpath):
 
 
-	latex_calls = []
+    latex_calls = []
 
     for folder in os.walk(inputfolder) :
         for subfolder in folder[1]:
@@ -22,8 +22,8 @@ def generate_latex_skeleton(inputfolder,outputpath):
 
     text_file = open(outputpath, "w")
     for line in latex_calls:
-		text_file.write(line)
-	text_file.close()
+        text_file.write(line)
+    text_file.close()
 
 
 
