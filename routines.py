@@ -1,6 +1,6 @@
 # MIT License
 
-# Copyright (c) 2018 Benjamin Bercovici and Jay McMahon
+# Copyright (c) 2018 Benjamin Bercovici and Andrew French
 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -46,8 +46,6 @@ import os
 
 # files can be retrieved from 
 # scp -r bebe0705@fortuna.colorado.edu:/home/anfr8485/FALCON/Filter/output/ outputs/
-
-
 
 
 '''
@@ -537,7 +535,6 @@ Inputs:
 - log_scale : True if covariances must be plotted in semilogy scale
 - kept : determines the number of measurements to kept between two consecutive kept measurements (kept == -1: no discarding)
 '''
-
 def plot_covariance_schedule_from_enclosing_folder(inputfolder,convert_to_RTN,log_scale = True,outputname = None,kept = - 1):
     covs = []
     cases = []
@@ -642,6 +639,125 @@ def plot_covariance_schedule_from_enclosing_folder(inputfolder,convert_to_RTN,lo
 
 
 '''
+Plots covariance envelope 
+for each state component given the provided
+observation schedules (WORK IN PROGRESS)
+Inputs:
+-------
+- folder_list : list of enclosing folders we want to have overlaid
+- inputfolder : path to enclosing folder for all cases
+- convert_to_RTN : True if computed states must be converted to RTN
+- log_scale : True if covariances must be plotted in semilogy scale
+- kept : determines the number of measurements to kept between two consecutive kept measurements (kept == -1: no discarding)
+'''
+def plot_covariance_schedule_from_list_of_folder(folder_list,convert_to_RTN,log_scale = True,outputname = None,kept = - 1):
+    covs = []
+    cases = []
+    ref_trajs = []
+    epochs = []
+    sd_states_all_cases = []
+
+    labels =  create_labels(convert_to_RTN)
+
+    # Creating the subplots
+    ax_x_pos = plt.subplot(321)
+    plt.ylabel(labels["e1"] + " position (km)")
+
+    # Plot e2 pos component
+    ax_y_pos = plt.subplot(323, sharex= ax_x_pos)
+    plt.ylabel(labels["e2"] + " position (km)")
+
+    # Plot e3 pos component
+    ax_z_pos = plt.subplot(325, sharex= ax_x_pos)
+    
+    plt.xlabel("Days since Epoch")
+    plt.ylabel(labels["e3"] + " position (km)")
+
+    # Plot e1 vel component
+    ax_x_vel = plt.subplot(322, sharex= ax_x_pos)
+    plt.ylabel(labels["e1"] + " velocity (km/s)")
+    
+    # Plot e2 vel component
+    ax_y_vel = plt.subplot(324, sharex= ax_x_pos)
+    plt.ylabel(labels["e2"] + " velocity (km/s)")
+    
+    # Plot e3 vel component
+    ax_z_vel = plt.subplot(326, sharex= ax_x_pos)
+    plt.ylabel(labels["e3"] + " velocity (km/s)")
+
+    plt.xlabel("Days since Epoch")
+
+    # Loading and plotting
+    for folder in os.walk(inputfolder) :
+        for subfolder in folder[1]:
+
+            if subfolder not in folder_list:
+                continue
+
+
+            foldername = folder[0] + subfolder + "/"
+            print("Loading case " + subfolder)
+
+            # Loading
+            epoch,stm,cov,deviations,ref_traj,mnvr = load_data(foldername,only_covs = True,kept = kept)
+            epoch = epoch - epoch[0]
+
+            # Converting
+            if convert_to_RTN:
+                dummy = None
+                cov,dummy = convert2RTN(cov,dummy,ref_traj)
+
+            # Extracting SDs
+            N = (int)(np.sqrt(cov.shape[1]))
+            sd_states = [np.sqrt(np.diag(np.reshape(cov[i,:],[N,N]))) for i in range(epoch.shape[0])]
+            sd_states = np.vstack(sd_states)
+
+            # Plot e1 pos component
+            if log_scale:
+                ax_x_pos.semilogy(epoch,3 * sd_states[:,0],'.')
+            else:
+                ax_x_pos.plot(epoch,3 * sd_states[:,0],'.')
+
+            # Plot e2 pos component
+            if log_scale:
+                ax_y_pos.semilogy(epoch,3 * sd_states[:,1],'.')
+            else:
+                ax_y_pos.plot(epoch,3 * sd_states[:,1],'.')
+
+            # Plot e3 pos component
+            if log_scale:
+                ax_z_pos.semilogy(epoch,3 * sd_states[:,2],'.')
+            else:
+                ax_z_pos.plot(epoch,3 * sd_states[:,2],'.')
+
+           
+            # Plot e1 vel component
+            if log_scale:
+                ax_x_vel.semilogy(epoch,3 * sd_states[:,3],'.')
+            else:
+                ax_x_vel.plot(epoch,3 * sd_states[:,3],'.')
+            
+            # Plot e2 vel component
+            if log_scale:
+                ax_y_vel.semilogy(epoch,3 * sd_states[:,4],'.')
+            else:
+                ax_y_vel.plot(epoch,3 * sd_states[:,4],'.')
+            
+            # Plot e3 vel component
+            if log_scale:
+                ax_z_vel.semilogy(epoch,3 * sd_states[:,5],'.')
+            else:
+                ax_z_vel.plot(epoch,3 * sd_states[:,5],'.')
+
+
+    if outputname is not None:
+        plt.savefig(outputname)
+    else:
+        plt.show()
+
+
+
+'''
 Generates results plots for all simulation cases in the enclosing folder
 Inputs:
 -------
@@ -668,6 +784,7 @@ def plot_results_from_enclosing_folder(inputfolder,convert_to_RTN = False,savepa
             if mltpro is False:
                 print("Loading case " + subfolder)
                 plot_results(foldername,convert_to_RTN = convert_to_RTN,savepath = foldername,kept = kept,title = subfolder,log_scale = log_scale)
+                
             else:
                 inputfolders += [foldername]
                 converts += [convert_to_RTN]
