@@ -651,7 +651,7 @@ def plot_covariance_overlays():
     "/home/anfr8485/FALCON/Filter/test/advspc_results_test/AFSCN_DSN_8_HRS_R_4_RR_7_PN_10/",
     "/home/anfr8485/FALCON/Filter/test/advspc_results_test/AFSCN_DSN_24_HRS_R_4_RR_7_PN_10/"]  
 
-    routines.plot_covariance_schedule_from_list_of_folder(folder_list_AFSCN_ONLY,
+    plot_covariance_schedule_from_list_of_folder(folder_list_AFSCN_ONLY,
         "/home/anfr8485/FALCON/Filter/test/advspc_results/",
         True,kept = 3000,outputname = "AFSCN_ONLY")
 
@@ -673,19 +673,19 @@ def plot_covariance_overlays():
     # "/home/anfr8485/FALCON/Filter/test/advspc_results/AFSCN_ONLY_8_HRS_R_3_RR_6_PN_12/",
     # "/home/anfr8485/FALCON/Filter/test/advspc_results/AFSCN_ONLY_24_HRS_R_3_RR_6_PN_12/"]  
 
-    # routines.plot_covariance_schedule_from_list_of_folder(folder_list_AFSCN_ONLY,
+    # plot_covariance_schedule_from_list_of_folder(folder_list_AFSCN_ONLY,
     #     "/home/anfr8485/FALCON/Filter/test/advspc_results/",
     #     True,kept = 3000,outputname = "AFSCN_ONLY")
 
-    # routines.plot_covariance_schedule_from_list_of_folder(folder_list_AFSCN_DSN,
+    # plot_covariance_schedule_from_list_of_folder(folder_list_AFSCN_DSN,
     #     "/home/anfr8485/FALCON/Filter/test/advspc_results/",
     #     True,kept = 3000,outputname = "AFSCN_DSN")
 
-    # routines.plot_covariance_schedule_from_list_of_folder(folder_list_DSN_8_HRS_ONLY_NOISE_LVL,
+    # plot_covariance_schedule_from_list_of_folder(folder_list_DSN_8_HRS_ONLY_NOISE_LVL,
     #     "/home/anfr8485/FALCON/Filter/test/advspc_results/",
     #     True,kept = 3000,outputname = "DSN_8_ONLY_NOISE_LVL")
 
-    # routines.plot_covariance_schedule_from_list_of_folder(folder_list_DSN_8_HRS_ONLY_PN_LVL,
+    # plot_covariance_schedule_from_list_of_folder(folder_list_DSN_8_HRS_ONLY_PN_LVL,
     #     "/home/anfr8485/FALCON/Filter/test/advspc_results/",
     #     True,kept = 3000,outputname = "DSN_8_ONLY_PN_LVL")
 
