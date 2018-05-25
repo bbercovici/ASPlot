@@ -42,17 +42,66 @@ Inputs:
 def generate_latex_skeleton(inputfolder,outputpath):
 
 
-    latex_calls = []
+    latex_calls = [r"\section{Results}"]
+    latex_calls += "\n"
 
     for folder in os.walk(inputfolder) :
         for subfolder in folder[1]:
             foldername = folder[0] + subfolder + "/"
 
-            latex_calls += r"\subsection{$\mathrm{" + subfolder + r"}$}"
+            subsectionName = subfolder.replace('_', '\\_')
+
+            latex_calls += r"\subsection{$\mathrm{" + subsectionName + r"}$}"
             latex_calls += "\n"
-            latex_calls += [r"\includegraphics[width = \textwidth]{" + foldername + r"positions.pdf" + r"}"]
+            latex_calls += "\\centering"
             latex_calls += "\n"
-            latex_calls += [r"\includegraphics[width = \textwidth]{" + foldername + r"velocities.pdf" + r"}"]
+            latex_calls += [r"\includegraphics[width = 0.7\textwidth]{" + foldername + r"positions.pdf" + r"}"]
+            latex_calls += "\n"
+            latex_calls += "\\newline"
+            latex_calls += "\n"
+            latex_calls += "\\centering"
+            latex_calls += "\n"
+            latex_calls += [r"\includegraphics[width = 0.7\textwidth]{" + foldername + r"velocities.pdf" + r"}"]
+            latex_calls += "\n"
+
+            latex_calls += "\\begin{table}[!htb]"
+            latex_calls += "\n"
+            latex_calls += "\\begin{center}"
+            latex_calls += "\n"
+            latex_calls += r"\captionsetup{width=.8\linewidth}"
+            latex_calls += "\n"
+            latex_calls += r"\caption{State sigmas mapped to maneuver times in km and km/s}"
+            latex_calls += "\n"
+            latex_calls += r"\small"
+            latex_calls += "\n"
+            latex_calls += "\\begin{tabular}{l c c c c c c}"
+            latex_calls += "\n"
+            latex_calls += "\\toprule"
+            latex_calls += "\n"
+            latex_calls += r"Maneuver & $\sigma_{R}$ & $\sigma_{T}$ & $\sigma_{N}$ & $\sigma_{\dot{R}}$ & $\sigma_{\dot{T}}$ & $\sigma_{\dot{N}}$ \\"
+            latex_calls += "\n"
+            latex_calls += r"\otoprule"
+            latex_calls += "\n" 
+
+            with open(foldername + r"sigmas.map") as f:
+                lines = f.readlines()
+
+            for line in lines:
+                latex_calls += line
+                latex_calls += "\n"
+
+
+            latex_calls += "\\bottomrule"
+            latex_calls += "\n"
+            latex_calls += r"\end{tabular}"
+            latex_calls += "\n"
+            latex_calls += r"\end{center}"
+            latex_calls += "\n"
+            latex_calls += r"\end{table}"
+            latex_calls += "\n"
+
+
+            latex_calls += r"\clearpage"
             latex_calls += "\n"
 
     text_file = open(outputpath, "w")
@@ -60,6 +109,10 @@ def generate_latex_skeleton(inputfolder,outputpath):
         text_file.write(line)
     text_file.close()
 
+
+workingDir = 'home/anfr8485/FALCON/Filter/test/advspc_results/'
+pdfDir = '/Users/afrench/Desktop/Adv Spc Report/results.tex'
+generate_latex_skeleton(os.path.join(os.getcwd(), workingDir), pdfDir)
 
 
 

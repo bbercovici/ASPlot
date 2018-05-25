@@ -125,8 +125,9 @@ def plot_results_mlp(args):
 
     inputpath,convert_to_RTN,savepath,kept,title,log_scale = args 
 
-    epoch,stm,cov,deviations,ref_traj,mnvr = load_data(inputpath,only_covs = True,kept = kept)
+    epoch,stm,cov,deviations,ref_traj,mnvr = load_data(inputpath,only_covs = False,kept = kept)
 
+    covEME = cov
     # If need be, state deviations and covariances are converted to the RTN frame
     if convert_to_RTN :
         cov,deviations = convert2RTN(cov,deviations,ref_traj)
@@ -136,6 +137,77 @@ def plot_results_mlp(args):
 
     # The state deviations are plotted along with the covariances
     plot_everything(epoch,labels,None,cov,mnvr,savepath,title,log_scale)
+
+    map_to_mnvrs(mnvr, epoch, covEME, stm, ref_traj, savepath)
+
+
+def map_to_mnvrs(mnvr_times, epoch, cov, stm, ref, savepath):
+
+    N = ref[0].shape[0]
+    cov = [np.reshape(c, (N, N)) for c in cov]
+    stm = [np.reshape(s, (N, N)) for s in stm]
+
+    # DCO in days prior to burn
+    # Given by Adv. Space
+    mnvr_labels = ['TCM01', 'TCM02', 'TCM03', 'GSI01', 'GSI02', 'GSI03', 'GSI04']
+    mnvr_dco_offset = [1., 3., 3., 1., 1., 1., 1.]
+
+       # Mapping Covariance
+
+    # Finding index of dco (finds latest epoch before dco)
+    dco_time_index = []
+    for i in range(len(mnvr_times)):
+        dco_time = mnvr_times[i] - mnvr_dco_offset[i]
+        epoch_minus = [x - dco_time for x in epoch]
+        epoch_minus_temp_index = []
+        
+        for j in range(len(epoch_minus)):
+            if epoch_minus[j] <= 0.:
+                epoch_minus_temp_index.append(j)
+
+        dco_time_index.append(epoch_minus_temp_index[-1])
+
+    # Finding index of manuevers (finds latest epoch before manuever)
+    mnvr_time_index = []
+    for i in range(len(mnvr_times)):
+        mnvr_time = mnvr_times[i]
+        epoch_minus = [x - mnvr_time for x in epoch]
+        epoch_minus_temp_index = []
+        
+        for j in range(len(epoch_minus)):
+            if epoch_minus[j] <= 0.:
+                epoch_minus_temp_index.append(j)
+
+        mnvr_time_index.append(epoch_minus_temp_index[-1])
+
+    mapFile = os.path.join(savepath, 'sigmas.map')
+
+    # Mapping convariances
+    with open(mapFile, 'w') as f:
+        cov_mapped = []
+        for i in range(len(dco_time_index)):
+            dco_index = dco_time_index[i]
+            mnvr_index = mnvr_time_index[i]
+
+            # Creating STM from dco to mnvr
+            stm_dco = stm[dco_index]
+            stm_mnvr = stm[mnvr_index]
+            stm_map = stm_mnvr @ np.linalg.inv(stm_dco)
+
+            # Mapping covariance
+            cov_map = stm_map @ cov[dco_index] @ stm_map.transpose()
+            cov_map = np.reshape(cov_map, (1, N*N))
+
+            # Rotating mapped covariance
+            cov_map_rot, _ = convert2RTN(cov_map, None, np.reshape(ref[dco_index], (1, N)))
+            cov_mapped.append(cov_map_rot)
+
+            sigmas = np.sqrt(np.diag(np.reshape(cov_map_rot, (N, N))))
+            sigmas = ['{:0.3e}'.format(s) for s in sigmas]
+
+            line = [mnvr_labels[i]] + sigmas[:6]
+            f.write(' & '.join(line) + ' \\\\\n')
+
 
 
 '''
@@ -151,8 +223,9 @@ show plots
 '''
 def plot_results(inputpath,convert_to_RTN = False,savepath = None,kept = -1,title = None,log_scale = False):
 
-    epoch,stm,cov,deviations,ref_traj,mnvr = load_data(inputpath,only_covs = True,kept = kept)
+    epoch,stm,cov,deviations,ref_traj,mnvr = load_data(inputpath,only_covs = False,kept = kept)
 
+    covEME = cov
     # If need be, state deviations and covariances are converted to the RTN frame
     if convert_to_RTN :
         cov,deviations = convert2RTN(cov,deviations,ref_traj)
@@ -162,6 +235,8 @@ def plot_results(inputpath,convert_to_RTN = False,savepath = None,kept = -1,titl
 
     # The state deviations are plotted along with the covariances
     plot_everything(epoch,labels,None,cov,mnvr,savepath,title,log_scale)
+
+    map_to_mnvrs(mnvr, epoch, covEME, stm, ref_traj, savepath)
 
 
 '''
