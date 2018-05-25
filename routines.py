@@ -644,7 +644,7 @@ def plot_covariance_overlay_from_enclosing_folder(inputfolder,convert_to_RTN,log
 '''
 Generates the covariance overlays for the required combination of cases
 '''
-def plot plot_covariance_overlays():
+def plot_covariance_overlays():
 
 
     folder_list_AFSCN_ONLY  = ["/home/anfr8485/FALCON/Filter/test/advspc_results_test/AFSCN_DSN_4_HRS_R_4_RR_7_PN_10/",
