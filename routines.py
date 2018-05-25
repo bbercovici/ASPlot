@@ -648,13 +648,16 @@ def plot_covariance_overlays():
 
 
     folder_list_AFSCN_ONLY  = [
-    "/home/anfr8485/FALCON/Filter/test/advspc_results_test/AFSCN_DSN_4_HRS_R_4_RR_7_PN_10/",
-    "/home/anfr8485/FALCON/Filter/test/advspc_results_test/AFSCN_DSN_8_HRS_R_4_RR_7_PN_10/",
-    "/home/anfr8485/FALCON/Filter/test/advspc_results_test/AFSCN_DSN_24_HRS_R_4_RR_7_PN_10/"]  
+    "/home/anfr8485/FALCON/Filter/test/advspc_results_test/AFSCN_ONLY_4_HRS_R_5_RR_8_PN_12/",
+    "/home/anfr8485/FALCON/Filter/test/advspc_results_test/AFSCN_ONLY_8_HRS_R_5_RR_8_PN_12/",
+    "/home/anfr8485/FALCON/Filter/test/advspc_results_test/AFSCN_ONLY_24_HRS_R_5_RR_8_PN_12/"]  
 
     plot_covariance_overlay_from_list_of_folder(folder_list_AFSCN_ONLY,
         "/home/anfr8485/FALCON/Filter/test/advspc_results_test/",
-        True,kept = 6000,outputname = "AFSCN_ONLY",plot_RSS = True)
+        True,
+        kept = 4000,
+        outputname = "AFSCN_ONLY",
+        plot_RSS = True)
 
     #########################
     # Hours-per-day tradoff #
@@ -671,7 +674,7 @@ def plot_covariance_overlays():
     # folder_list_AFSCN_ONLY,
     # source_folder,
     # True,
-    # kept = 6000,
+    # kept = 4000,
     # outputname = "AFSCN_ONLY") 
 
     # folder_list_AFSCN_DSN  = [
@@ -683,7 +686,7 @@ def plot_covariance_overlays():
     # folder_list_AFSCN_DSN,
     # source_folder,
     # True,
-    # kept = 6000,
+    # kept = 4000,
     # outputname = "AFSCN_DSN")
 
 
@@ -701,7 +704,7 @@ def plot_covariance_overlays():
     # folder_list_AFSCN_DSN_8_HRS_R_NOISE_LVL,
     # source_folder,
     # True,
-    # kept = 6000,
+    # kept = 4000,
     # outputname = "AFSCN_DSN_8_HRS_R_NOISE_LVL")
 
 
@@ -716,7 +719,7 @@ def plot_covariance_overlays():
     # folder_list_AFSCN_ONLY_8_HRS_R_NOISE_LVL,
     # source_folder,
     # True,
-    # kept = 6000,
+    # kept = 4000,
     # outputname = "AFSCN_ONLY_8_HRS_R_NOISE_LVL")
 
 
@@ -734,7 +737,7 @@ def plot_covariance_overlays():
     # folder_list_AFSCN_DSN_8_HRS_RR_NOISE_LVL,
     # source_folder,
     # True,
-    # kept = 6000,
+    # kept = 4000,
     # outputname = "AFSCN_DSN_8_HRS_RR_NOISE_LVL")
 
     # folder_list_AFSCN_8_HRS_ONLY_RR_NOISE_LVL  = [
@@ -747,7 +750,7 @@ def plot_covariance_overlays():
     # folder_list_AFSCN_8_HRS_ONLY_RR_NOISE_LVL,
     # source_folder,
     # True,
-    # kept = 6000,
+    # kept = 4000,
     # outputname = "AFSCN_8_HRS_ONLY_RR_NOISE_LVL")
 
 
@@ -765,7 +768,7 @@ def plot_covariance_overlays():
     # folder_list_AFSCN_DSN_8_HRS_PN_LVL,
     # source_folder,
     # True,
-    # kept = 6000,
+    # kept = 4000,
     # outputname = "AFSCN_DSN_8_HRS_PN_LVL")
 
     # folder_list_AFSCN_8_HRS_ONLY_NOISE_LVL  = [
@@ -778,7 +781,7 @@ def plot_covariance_overlays():
     # folder_list_AFSCN_8_HRS_ONLY_PN_LVL,
     # source_folder,
     # True,
-    # kept = 6000,
+    # kept = 4000,
     # outputname = "AFSCN_8_HRS_ONLY_PN_LVL")
 
 
