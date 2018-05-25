@@ -842,7 +842,7 @@ def plot_covariance_overlay_from_list_of_folder(folder_list,inputfolder,
 
 
 
-    plt.legend(loc = "center right",bbox_inches = (1,0.5))  
+    plt.legend(loc = "center right",bbox_to_anchor = (1,0.5))  
              
     if outputname is not None:
         plt.savefig(outputname,bbox_inches='tight')
