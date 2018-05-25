@@ -646,17 +646,19 @@ Generates the covariance overlays for the required combination of cases
 '''
 def plot_covariance_overlays():
 
+    source_folder = "/home/anfr8485/FALCON/Filter/test/advspc_results_test/"
 
     folder_list_AFSCN_ONLY  = [
-    "/home/anfr8485/FALCON/Filter/test/advspc_results_test/AFSCN_ONLY_4_HRS_R_5_RR_8_PN_12/",
-    "/home/anfr8485/FALCON/Filter/test/advspc_results_test/AFSCN_ONLY_8_HRS_R_5_RR_8_PN_12/",
-    "/home/anfr8485/FALCON/Filter/test/advspc_results_test/AFSCN_ONLY_24_HRS_R_5_RR_8_PN_12/"]  
+    source_folder + "AFSCN_ONLY_8_HRS_R_2_RR_6_PN_12/",
+    source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_6_PN_12/",
+    source_folder + "AFSCN_ONLY_8_HRS_R_4_RR_6_PN_12/",
+    source_folder + "AFSCN_ONLY_8_HRS_R_5_RR_6_PN_12/"]  
 
     plot_covariance_overlay_from_list_of_folder(folder_list_AFSCN_ONLY,
-        "/home/anfr8485/FALCON/Filter/test/advspc_results_test/",
+        source_folder,
         True,
         kept = 4000,
-        outputname = "AFSCN_ONLY",
+        outputname = "AFSCN_ONLY_8_HRS_R_NOISE_LVL",
         plot_RSS = True)
 
     #########################
