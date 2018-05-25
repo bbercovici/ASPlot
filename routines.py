@@ -535,7 +535,7 @@ Inputs:
 - log_scale : True if covariances must be plotted in semilogy scale
 - kept : determines the number of measurements to kept between two consecutive kept measurements (kept == -1: no discarding)
 '''
-def plot_covariance_schedule_from_enclosing_folder(inputfolder,convert_to_RTN,log_scale = True,outputname = None,kept = - 1):
+def plot_covariance_overlay_from_enclosing_folder(inputfolder,convert_to_RTN,log_scale = True,outputname = None,kept = - 1):
     covs = []
     cases = []
     ref_trajs = []
@@ -638,6 +638,59 @@ def plot_covariance_schedule_from_enclosing_folder(inputfolder,convert_to_RTN,lo
         plt.show()
 
 
+
+
+
+'''
+Generates the covariance overlays for the required combination of cases
+'''
+def plot plot_covariance_overlays():
+
+
+    folder_list_AFSCN_ONLY  = ["/home/anfr8485/FALCON/Filter/test/advspc_results_test/AFSCN_DSN_4_HRS_R_4_RR_7_PN_10/",
+    "/home/anfr8485/FALCON/Filter/test/advspc_results_test/AFSCN_DSN_8_HRS_R_4_RR_7_PN_10/",
+    "/home/anfr8485/FALCON/Filter/test/advspc_results_test/AFSCN_DSN_24_HRS_R_4_RR_7_PN_10/"]  
+
+    routines.plot_covariance_schedule_from_list_of_folder(folder_list_AFSCN_ONLY,
+        "/home/anfr8485/FALCON/Filter/test/advspc_results/",
+        True,kept = 3000,outputname = "AFSCN_ONLY")
+
+
+    # folder_list_AFSCN_ONLY  = ["/home/anfr8485/FALCON/Filter/test/advspc_results/AFSCN_ONLY_4_HRS_R_3_RR_6_PN_12/",
+    # "/home/anfr8485/FALCON/Filter/test/advspc_results/AFSCN_ONLY_8_HRS_R_3_RR_6_PN_12/",
+    # "/home/anfr8485/FALCON/Filter/test/advspc_results/AFSCN_ONLY_24_HRS_R_3_RR_6_PN_12/"]  
+
+    # folder_list_AFSCN_DSN  = ["/home/anfr8485/FALCON/Filter/test/advspc_results/AFSCN_DSN_4_HRS_R_3_RR_6_PN_12/",
+    # "/home/anfr8485/FALCON/Filter/test/advspc_results/AFSCN_DSN_8_HRS_R_3_RR_6_PN_12/",
+    # "/home/anfr8485/FALCON/Filter/test/advspc_results/AFSCN_DSN_24_HRS_R_3_RR_6_PN_12/"]
+
+    # # I think these are missing
+    # folder_list_DSN_8_HRS_ONLY_NOISE_LVL  = ["/home/anfr8485/FALCON/Filter/test/advspc_results/AFSCN_ONLY_4_HRS_R_3_RR_6_PN_12/",
+    # "/home/anfr8485/FALCON/Filter/test/advspc_results/AFSCN_ONLY_8_HRS_R_3_RR_6_PN_12/",
+    # "/home/anfr8485/FALCON/Filter/test/advspc_results/AFSCN_ONLY_24_HRS_R_3_RR_6_PN_12/"]  
+
+    # folder_list_DSN_8_HRS_ONLY_PN_LVL  = ["/home/anfr8485/FALCON/Filter/test/advspc_results/AFSCN_ONLY_4_HRS_R_3_RR_6_PN_12/",
+    # "/home/anfr8485/FALCON/Filter/test/advspc_results/AFSCN_ONLY_8_HRS_R_3_RR_6_PN_12/",
+    # "/home/anfr8485/FALCON/Filter/test/advspc_results/AFSCN_ONLY_24_HRS_R_3_RR_6_PN_12/"]  
+
+    # routines.plot_covariance_schedule_from_list_of_folder(folder_list_AFSCN_ONLY,
+    #     "/home/anfr8485/FALCON/Filter/test/advspc_results/",
+    #     True,kept = 3000,outputname = "AFSCN_ONLY")
+
+    # routines.plot_covariance_schedule_from_list_of_folder(folder_list_AFSCN_DSN,
+    #     "/home/anfr8485/FALCON/Filter/test/advspc_results/",
+    #     True,kept = 3000,outputname = "AFSCN_DSN")
+
+    # routines.plot_covariance_schedule_from_list_of_folder(folder_list_DSN_8_HRS_ONLY_NOISE_LVL,
+    #     "/home/anfr8485/FALCON/Filter/test/advspc_results/",
+    #     True,kept = 3000,outputname = "DSN_8_ONLY_NOISE_LVL")
+
+    # routines.plot_covariance_schedule_from_list_of_folder(folder_list_DSN_8_HRS_ONLY_PN_LVL,
+    #     "/home/anfr8485/FALCON/Filter/test/advspc_results/",
+    #     True,kept = 3000,outputname = "DSN_8_ONLY_PN_LVL")
+
+
+
 '''
 Plots covariance envelope 
 for each state component given the provided
@@ -649,8 +702,10 @@ Inputs:
 - convert_to_RTN : True if computed states must be converted to RTN
 - log_scale : True if covariances must be plotted in semilogy scale
 - kept : determines the number of measurements to kept between two consecutive kept measurements (kept == -1: no discarding)
+- plot_RSS : if True, will only plot position and velocity RSS
 '''
-def plot_covariance_schedule_from_list_of_folder(folder_list,inputfolder,convert_to_RTN,log_scale = True,outputname = None,kept = - 1):
+def plot_covariance_overlay_from_list_of_folder(folder_list,inputfolder,
+    convert_to_RTN,log_scale = True,outputname = None,kept = - 1,plot_RSS = True):
     covs = []
     cases = []
     ref_trajs = []
@@ -659,33 +714,47 @@ def plot_covariance_schedule_from_list_of_folder(folder_list,inputfolder,convert
 
     labels =  create_labels(convert_to_RTN)
 
-    # Creating the subplots
-    ax_x_pos = plt.subplot(321)
-    plt.ylabel(labels["e1"] + " position (km)")
+    if plot_RSS:
 
-    # Plot e2 pos component
-    ax_y_pos = plt.subplot(323, sharex= ax_x_pos)
-    plt.ylabel(labels["e2"] + " position (km)")
+        # Creating the subplots
+        ax_pos_RSS = plt.subplot(121)
+        plt.ylabel("Position RSS (km)")
+        plt.xlabel("Days since Epoch")
 
-    # Plot e3 pos component
-    ax_z_pos = plt.subplot(325, sharex= ax_x_pos)
-    
-    plt.xlabel("Days since Epoch")
-    plt.ylabel(labels["e3"] + " position (km)")
+        # Plot e3 vel component
+        ax_vel_RSS = plt.subplot(122, sharex= ax_pos_RSS)
+        plt.ylabel("Velocity RSS (km/s)")
 
-    # Plot e1 vel component
-    ax_x_vel = plt.subplot(322, sharex= ax_x_pos)
-    plt.ylabel(labels["e1"] + " velocity (km/s)")
-    
-    # Plot e2 vel component
-    ax_y_vel = plt.subplot(324, sharex= ax_x_pos)
-    plt.ylabel(labels["e2"] + " velocity (km/s)")
-    
-    # Plot e3 vel component
-    ax_z_vel = plt.subplot(326, sharex= ax_x_pos)
-    plt.ylabel(labels["e3"] + " velocity (km/s)")
+        plt.xlabel("Days since Epoch")
 
-    plt.xlabel("Days since Epoch")
+    else:
+        # Creating the subplots
+        ax_x_pos = plt.subplot(321)
+        plt.ylabel(labels["e1"] + " position (km)")
+
+        # Plot e2 pos component
+        ax_y_pos = plt.subplot(323, sharex= ax_x_pos)
+        plt.ylabel(labels["e2"] + " position (km)")
+
+        # Plot e3 pos component
+        ax_z_pos = plt.subplot(325, sharex= ax_x_pos)
+        
+        plt.xlabel("Days since Epoch")
+        plt.ylabel(labels["e3"] + " position (km)")
+
+        # Plot e1 vel component
+        ax_x_vel = plt.subplot(322, sharex= ax_x_pos)
+        plt.ylabel(labels["e1"] + " velocity (km/s)")
+        
+        # Plot e2 vel component
+        ax_y_vel = plt.subplot(324, sharex= ax_x_pos)
+        plt.ylabel(labels["e2"] + " velocity (km/s)")
+        
+        # Plot e3 vel component
+        ax_z_vel = plt.subplot(326, sharex= ax_x_pos)
+        plt.ylabel(labels["e3"] + " velocity (km/s)")
+
+        plt.xlabel("Days since Epoch")
 
     # Loading and plotting
     for folder in os.walk(inputfolder) :
@@ -694,7 +763,6 @@ def plot_covariance_schedule_from_list_of_folder(folder_list,inputfolder,convert
 
             if foldername not in folder_list:
                 continue
-
 
             print("Loading case " + subfolder)
 
@@ -709,45 +777,70 @@ def plot_covariance_schedule_from_list_of_folder(folder_list,inputfolder,convert
 
             # Extracting SDs
             N = (int)(np.sqrt(cov.shape[1]))
-            sd_states = [np.sqrt(np.diag(np.reshape(cov[i,:],[N,N]))) for i in range(epoch.shape[0])]
-            sd_states = np.vstack(sd_states)
 
-            # Plot e1 pos component
-            if log_scale:
-                ax_x_pos.semilogy(epoch,3 * sd_states[:,0],'.')
-            else:
-                ax_x_pos.plot(epoch,3 * sd_states[:,0],'.')
+            if plot_RSS:
 
-            # Plot e2 pos component
-            if log_scale:
-                ax_y_pos.semilogy(epoch,3 * sd_states[:,1],'.')
-            else:
-                ax_y_pos.plot(epoch,3 * sd_states[:,1],'.')
+                sd_states_pos = [np.sqrt(np.trace(np.reshape(cov[i,:],[N,N])[0:3,0:3])) for i in range(epoch.shape[0])]
+                sd_states_vel = [np.sqrt(np.trace(np.reshape(cov[i,:],[N,N])[3:6,3:6])) for i in range(epoch.shape[0])]
 
-            # Plot e3 pos component
-            if log_scale:
-                ax_z_pos.semilogy(epoch,3 * sd_states[:,2],'.')
-            else:
-                ax_z_pos.plot(epoch,3 * sd_states[:,2],'.')
+                # Plot e1 pos component
+                if log_scale:
+                    ax_pos_RSS.semilogy(epoch,3 * sd_states_pos,'.')
+                else:
+                    ax_pos_RSS.plot(epoch,3 * sd_states_pos,'.')
 
-           
-            # Plot e1 vel component
-            if log_scale:
-                ax_x_vel.semilogy(epoch,3 * sd_states[:,3],'.')
+                # Plot e2 pos component
+                if log_scale:
+                    ax_vel_RSS.semilogy(epoch,3 * sd_states_vel,'.')
+                else:
+                    ax_vel_RSS.plot(epoch,3 * sd_states_vel,'.')
+
+        
             else:
-                ax_x_vel.plot(epoch,3 * sd_states[:,3],'.')
-            
-            # Plot e2 vel component
-            if log_scale:
-                ax_y_vel.semilogy(epoch,3 * sd_states[:,4],'.')
-            else:
-                ax_y_vel.plot(epoch,3 * sd_states[:,4],'.')
-            
-            # Plot e3 vel component
-            if log_scale:
-                ax_z_vel.semilogy(epoch,3 * sd_states[:,5],'.')
-            else:
-                ax_z_vel.plot(epoch,3 * sd_states[:,5],'.')
+
+                sd_states = [np.sqrt(np.diag(np.reshape(cov[i,:],[N,N]))) for i in range(epoch.shape[0])]
+                sd_states = np.vstack(sd_states)
+
+                # Plot e1 pos component
+                if log_scale:
+                    ax_x_pos.semilogy(epoch,3 * sd_states[:,0],'.')
+                else:
+                    ax_x_pos.plot(epoch,3 * sd_states[:,0],'.')
+
+                # Plot e2 pos component
+                if log_scale:
+                    ax_y_pos.semilogy(epoch,3 * sd_states[:,1],'.')
+                else:
+                    ax_y_pos.plot(epoch,3 * sd_states[:,1],'.')
+
+                # Plot e3 pos component
+                if log_scale:
+                    ax_z_pos.semilogy(epoch,3 * sd_states[:,2],'.')
+                else:
+                    ax_z_pos.plot(epoch,3 * sd_states[:,2],'.')
+
+                # Plot e1 vel component
+                if log_scale:
+                    ax_x_vel.semilogy(epoch,3 * sd_states[:,3],'.')
+                else:
+                    ax_x_vel.plot(epoch,3 * sd_states[:,3],'.')
+                
+                # Plot e2 vel component
+                if log_scale:
+                    ax_y_vel.semilogy(epoch,3 * sd_states[:,4],'.')
+                else:
+                    ax_y_vel.plot(epoch,3 * sd_states[:,4],'.')
+                
+                # Plot e3 vel component
+                if log_scale:
+                    ax_z_vel.semilogy(epoch,3 * sd_states[:,5],'.')
+                else:
+                    ax_z_vel.plot(epoch,3 * sd_states[:,5],'.')
+
+
+    plt.title(outputname)
+
+
 
 
     if outputname is not None:
