@@ -655,39 +655,130 @@ def plot_covariance_overlays():
         "/home/anfr8485/FALCON/Filter/test/advspc_results_test/",
         True,kept = 6000,outputname = "AFSCN_ONLY",plot_RSS = True)
 
+    #########################
+    # Hours-per-day tradoff #
+    #########################
 
-    # folder_list_AFSCN_ONLY  = ["/home/anfr8485/FALCON/Filter/test/advspc_results/AFSCN_ONLY_4_HRS_R_3_RR_6_PN_12/",
-    # "/home/anfr8485/FALCON/Filter/test/advspc_results/AFSCN_ONLY_8_HRS_R_3_RR_6_PN_12/",
-    # "/home/anfr8485/FALCON/Filter/test/advspc_results/AFSCN_ONLY_24_HRS_R_3_RR_6_PN_12/"]  
+    source_folder = "/home/anfr8485/FALCON/Filter/test/advspc_results/"
 
-    # folder_list_AFSCN_DSN  = ["/home/anfr8485/FALCON/Filter/test/advspc_results/AFSCN_DSN_4_HRS_R_3_RR_6_PN_12/",
-    # "/home/anfr8485/FALCON/Filter/test/advspc_results/AFSCN_DSN_8_HRS_R_3_RR_6_PN_12/",
-    # "/home/anfr8485/FALCON/Filter/test/advspc_results/AFSCN_DSN_24_HRS_R_3_RR_6_PN_12/"]
+    # folder_list_AFSCN_ONLY  = [
+    # source_folder + "AFSCN_ONLY_4_HRS_R_3_RR_6_PN_12/",
+    # source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_6_PN_12/",
+    # source_folder + "AFSCN_ONLY_24_HRS_R_3_RR_6_PN_12/"] 
 
-    # # I think these are missing
-    # folder_list_DSN_8_HRS_ONLY_NOISE_LVL  = ["/home/anfr8485/FALCON/Filter/test/advspc_results/AFSCN_ONLY_4_HRS_R_3_RR_6_PN_12/",
-    # "/home/anfr8485/FALCON/Filter/test/advspc_results/AFSCN_ONLY_8_HRS_R_3_RR_6_PN_12/",
-    # "/home/anfr8485/FALCON/Filter/test/advspc_results/AFSCN_ONLY_24_HRS_R_3_RR_6_PN_12/"]  
+    # plot_covariance_schedule_from_list_of_folder(
+    # folder_list_AFSCN_ONLY,
+    # source_folder,
+    # True,
+    # kept = 6000,
+    # outputname = "AFSCN_ONLY") 
 
-    # folder_list_DSN_8_HRS_ONLY_PN_LVL  = ["/home/anfr8485/FALCON/Filter/test/advspc_results/AFSCN_ONLY_4_HRS_R_3_RR_6_PN_12/",
-    # "/home/anfr8485/FALCON/Filter/test/advspc_results/AFSCN_ONLY_8_HRS_R_3_RR_6_PN_12/",
-    # "/home/anfr8485/FALCON/Filter/test/advspc_results/AFSCN_ONLY_24_HRS_R_3_RR_6_PN_12/"]  
+    # folder_list_DSN_ONLY  = [
+    # source_folder + "DSN_ONLY_4_HRS_R_3_RR_6_PN_12/",
+    # source_folder + "DSN_ONLY_8_HRS_R_3_RR_6_PN_12/",
+    # source_folder + "DSN_ONLY_24_HRS_R_3_RR_6_PN_12/"]
 
-    # plot_covariance_schedule_from_list_of_folder(folder_list_AFSCN_ONLY,
-    #     "/home/anfr8485/FALCON/Filter/test/advspc_results/",
-    #     True,kept = 6000,outputname = "AFSCN_ONLY")
+    # plot_covariance_schedule_from_list_of_folder(
+    # folder_list_DSN_ONLY,
+    # source_folder,
+    # True,
+    # kept = 6000,
+    # outputname = "DSN_ONLY")
 
-    # plot_covariance_schedule_from_list_of_folder(folder_list_AFSCN_DSN,
-    #     "/home/anfr8485/FALCON/Filter/test/advspc_results/",
-    #     True,kept = 6000,outputname = "AFSCN_DSN")
 
-    # plot_covariance_schedule_from_list_of_folder(folder_list_DSN_8_HRS_ONLY_NOISE_LVL,
-    #     "/home/anfr8485/FALCON/Filter/test/advspc_results/",
-    #     True,kept = 6000,outputname = "DSN_8_ONLY_NOISE_LVL")
+    #########################
+    # R Noise tradoff #
+    #########################
 
-    # plot_covariance_schedule_from_list_of_folder(folder_list_DSN_8_HRS_ONLY_PN_LVL,
-    #     "/home/anfr8485/FALCON/Filter/test/advspc_results/",
-    #     True,kept = 6000,outputname = "DSN_8_ONLY_PN_LVL")
+    # folder_list_DSN_8_HRS_ONLY_R_NOISE_LVL  = [
+    # source_folder + "DSN_ONLY_8_HRS_R_2_RR_6_PN_12/",
+    # source_folder + "DSN_ONLY_8_HRS_R_3_RR_6_PN_12/",
+    # source_folder + "DSN_ONLY_8_HRS_R_4_RR_6_PN_12/",
+    # source_folder + "DSN_ONLY_8_HRS_R_5_RR_6_PN_12/"]  
+
+    # plot_covariance_schedule_from_list_of_folder(
+    # folder_list_DSN_8_HRS_ONLY_R_NOISE_LVL,
+    # source_folder,
+    # True,
+    # kept = 6000,
+    # outputname = "DSN_8_HRS_ONLY_R_NOISE_LVL")
+
+
+    # folder_list_AFSCN_8_HRS_ONLY_R_NOISE_LVL  = [
+    # source_folder + "AFSCN_ONLY_8_HRS_R_2_RR_6_PN_12/",
+    # source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_6_PN_12/",
+    # source_folder + "AFSCN_ONLY_8_HRS_R_4_RR_6_PN_12/",
+    # source_folder + "AFSCN_ONLY_8_HRS_R_5_RR_6_PN_12/"]  
+
+
+    # plot_covariance_schedule_from_list_of_folder(
+    # folder_list_AFSCN_8_HRS_ONLY_R_NOISE_LVL,
+    # source_folder,
+    # True,
+    # kept = 6000,
+    # outputname = "AFSCN_8_HRS_ONLY_R_NOISE_LVL")
+
+
+    ####################
+    # RR Noise tradoff #
+    ####################
+
+    # folder_list_DSN_8_HRS_ONLY_RR_NOISE_LVL  = [
+    # source_folder + "DSN_ONLY_8_HRS_R_3_RR_5_PN_12/",
+    # source_folder + "DSN_ONLY_8_HRS_R_3_RR_6_PN_12/",
+    # source_folder + "DSN_ONLY_8_HRS_R_3_RR_7_PN_12/"
+    # source_folder + "DSN_ONLY_8_HRS_R_3_RR_8_PN_12/"]  
+
+    # plot_covariance_schedule_from_list_of_folder(
+    # folder_list_DSN_8_HRS_ONLY_RR_NOISE_LVL,
+    # source_folder,
+    # True,
+    # kept = 6000,
+    # outputname = "DSN_8_HRS_ONLY_RR_NOISE_LVL")
+
+    # folder_list_AFSCN_8_HRS_ONLY_RR_NOISE_LVL  = [
+    # source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_5_PN_12/",
+    # source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_6_PN_12/",
+    # source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_7_PN_12/"
+    # source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_8_PN_12/"]  
+
+    # plot_covariance_schedule_from_list_of_folder(
+    # folder_list_AFSCN_8_HRS_ONLY_RR_NOISE_LVL,
+    # source_folder,
+    # True,
+    # kept = 6000,
+    # outputname = "AFSCN_8_HRS_ONLY_RR_NOISE_LVL")
+
+
+    ####################
+    # Process Noise tradoff #
+    ####################
+
+    # folder_list_DSN_8_HRS_ONLY_PN_LVL  = [
+    # source_folder + "DSN_ONLY_4_HRS_R_3_RR_6_PN_12/",
+    # source_folder + "DSN_ONLY_8_HRS_R_3_RR_6_PN_10/",
+    # source_folder + "DSN_ONLY_24_HRS_R_3_RR_6_PN_8/"
+    # source_folder + "DSN_ONLY_24_HRS_R_3_RR_6_PN_6/"]
+
+    # plot_covariance_schedule_from_list_of_folder(
+    # folder_list_DSN_8_HRS_ONLY_PN_LVL,
+    # source_folder,
+    # True,
+    # kept = 6000,
+    # outputname = "DSN_8_HRS_ONLY_PN_LVL")
+
+    # folder_list_AFSCN_8_HRS_ONLY_NOISE_LVL  = [
+    # source_folder + "AFSCN_ONLY_4_HRS_R_3_RR_6_PN_12/",
+    # source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_6_PN_10/",
+    # source_folder + "AFSCN_ONLY_24_HRS_R_3_RR_6_PN_8/",
+    # source_folder + "AFSCN_ONLY_24_HRS_R_3_RR_6_PN_6/"]  
+
+    # plot_covariance_schedule_from_list_of_folder(
+    # folder_list_AFSCN_8_HRS_ONLY_PN_LVL,
+    # source_folder,
+    # True,
+    # kept = 6000,
+    # outputname = "AFSCN_8_HRS_ONLY_PN_LVL")
 
 
 
@@ -785,6 +876,35 @@ def plot_covariance_overlay_from_list_of_folder(folder_list,inputfolder,
                 sd_states_pos = np.array([np.sqrt(np.trace(np.reshape(cov[i,:],[N,N])[0:3,0:3])) for i in range(epoch.shape[0])])
                 sd_states_vel = np.array([np.sqrt(np.trace(np.reshape(cov[i,:],[N,N])[3:6,3:6])) for i in range(epoch.shape[0])])
 
+                # Extracting legend
+                if outputname == "AFSCN_ONLY" or outputname == "DSN_ONLY":
+                    if "4_HRS" in foldername:
+                        label = "4 hours"
+                    elif "8_HRS" in foldername:
+                        label = "8 hours"
+                    elif "24_HRS" in foldername:
+                        label = "24 hours"
+
+                elif outputname == "DSN_8_ONLY_NOISE_R":
+                    if "R_5" in foldername:
+                        label = r"$10^{-5}\ \mathrm{km}$"
+                    elif "R_4" in foldername:
+                        label = r"$10^{-4}\ \mathrm{km}$"
+                    elif "R_3" in foldername:
+                        label = r"$10^{-3}\ \mathrm{km}$"
+                    elif "R_2" in foldername:
+                        label = r"$10^{-2}\ \mathrm{km}$"
+
+                elif outputname == "DSN_8_ONLY_PN_LVL":
+
+                elif outputname == "AFSCN_8_ONLY_NOISE_LVL":
+
+                elif outputname == "AFSCN_8_ONLY_PN_LVL":
+
+
+
+
+                
 
                 # Plot e1 pos component
                 if log_scale:
@@ -792,11 +912,13 @@ def plot_covariance_overlay_from_list_of_folder(folder_list,inputfolder,
                 else:
                     ax_pos_RSS.plot(epoch,3 * sd_states_pos,'.')
 
-                # Plot e2 pos component
+
+
+
                 if log_scale:
-                    ax_vel_RSS.semilogy(epoch,3 * sd_states_vel,'.',label = subfolder)
+                    ax_vel_RSS.semilogy(epoch,3 * sd_states_vel,'.',label = label)
                 else:
-                    ax_vel_RSS.plot(epoch,3 * sd_states_vel,'.',label = subfolder)
+                    ax_vel_RSS.plot(epoch,3 * sd_states_vel,'.',label = label)
 
         
             else:
