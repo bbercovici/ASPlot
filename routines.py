@@ -123,20 +123,24 @@ def plot_results_mlp(args):
 
     inputpath,convert_to_RTN,savepath,kept,title,log_scale = args 
 
-    epoch,stm,cov,deviations,ref_traj,mnvr = load_data(inputpath,only_covs = False,kept = kept)
+    try:
+        epoch,stm,cov,deviations,ref_traj,mnvr = load_data(inputpath,only_covs = False,kept = kept)
 
-    covEME = cov
-    # If need be, state deviations and covariances are converted to the RTN frame
-    if convert_to_RTN :
-        cov,deviations = convert2RTN(cov,deviations,ref_traj)
+        covEME = cov
+        # If need be, state deviations and covariances are converted to the RTN frame
+        if convert_to_RTN :
+            cov,deviations = convert2RTN(cov,deviations,ref_traj)
 
-    # Plot labels are created
-    labels = create_labels(convert_to_RTN)
+        # Plot labels are created
+        labels = create_labels(convert_to_RTN)
 
-    # The state deviations are plotted along with the covariances
-    plot_everything(epoch,labels,None,cov,mnvr,savepath,title,log_scale)
+        # The state deviations are plotted along with the covariances
+        plot_everything(epoch,labels,None,cov,mnvr,savepath,title,log_scale)
 
-    map_to_mnvrs(mnvr, epoch, covEME, stm, ref_traj, savepath)
+        map_to_mnvrs(mnvr, epoch, covEME, stm, ref_traj, savepath)
+    
+    except:
+        print("Filter did not converge")
 
 
 def map_to_mnvrs(mnvr_times, epoch, cov, stm, ref, savepath):
