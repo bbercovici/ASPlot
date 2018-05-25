@@ -646,7 +646,7 @@ Generates the covariance overlays for the required combination of cases
 '''
 def plot_covariance_overlays():
 
-    source_folder = "/home/anfr8485/FALCON/Filter/test/advspc_results_test/"
+    source_folder = "/home/anfr8485/FALCON/Filter/test/advspc_results/"
 
     folder_list_AFSCN_ONLY  = [
     source_folder + "AFSCN_ONLY_8_HRS_R_2_RR_6_PN_12/",
