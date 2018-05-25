@@ -811,12 +811,11 @@ def plot_covariance_overlay_from_list_of_folder(folder_list,inputfolder,
 
 
         # Creating the subplots
-        ax_pos_RSS = plt.subplot(121)
+        ax_pos_RSS = plt.subplot(211)
         plt.ylabel("Position RSS (km)")
-        plt.xlabel("Days since Epoch")
 
         # Plot e3 vel component
-        ax_vel_RSS = plt.subplot(122, sharex= ax_pos_RSS)
+        ax_vel_RSS = plt.subplot(212, sharex= ax_pos_RSS)
         plt.ylabel("Velocity RSS (km/s)")
         plt.xlabel("Days since Epoch")
 
@@ -974,7 +973,7 @@ def plot_covariance_overlay_from_list_of_folder(folder_list,inputfolder,
 
 
 
-    plt.legend(loc = "center right",bbox_to_anchor = (1,0.5))  
+    plt.legend(loc = "upper center",bbox_to_anchor = (0.5,1.1))  
              
     if outputname is not None:
         plt.savefig(outputname,bbox_inches='tight')
