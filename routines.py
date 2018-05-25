@@ -674,38 +674,38 @@ def plot_covariance_overlays():
     # kept = 6000,
     # outputname = "AFSCN_ONLY") 
 
-    # folder_list_DSN_ONLY  = [
-    # source_folder + "DSN_ONLY_4_HRS_R_3_RR_6_PN_12/",
-    # source_folder + "DSN_ONLY_8_HRS_R_3_RR_6_PN_12/",
-    # source_folder + "DSN_ONLY_24_HRS_R_3_RR_6_PN_12/"]
+    # folder_list_AFSCN_DSN  = [
+    # source_folder + "AFSCN_DSN_4_HRS_R_3_RR_6_PN_12/",
+    # source_folder + "AFSCN_DSN_8_HRS_R_3_RR_6_PN_12/",
+    # source_folder + "AFSCN_DSN_24_HRS_R_3_RR_6_PN_12/"]
 
     # plot_covariance_schedule_from_list_of_folder(
-    # folder_list_DSN_ONLY,
+    # folder_list_AFSCN_DSN,
     # source_folder,
     # True,
     # kept = 6000,
-    # outputname = "DSN_ONLY")
+    # outputname = "AFSCN_DSN")
 
 
-    #########################
+    ###################
     # R Noise tradoff #
-    #########################
+    ###################
 
-    # folder_list_DSN_8_HRS_ONLY_R_NOISE_LVL  = [
-    # source_folder + "DSN_ONLY_8_HRS_R_2_RR_6_PN_12/",
-    # source_folder + "DSN_ONLY_8_HRS_R_3_RR_6_PN_12/",
-    # source_folder + "DSN_ONLY_8_HRS_R_4_RR_6_PN_12/",
-    # source_folder + "DSN_ONLY_8_HRS_R_5_RR_6_PN_12/"]  
+    # folder_list_AFSCN_DSN_8_HRS_R_NOISE_LVL  = [
+    # source_folder + "AFSCN_DSN_8_HRS_R_2_RR_6_PN_12/",
+    # source_folder + "AFSCN_DSN_8_HRS_R_3_RR_6_PN_12/",
+    # source_folder + "AFSCN_DSN_8_HRS_R_4_RR_6_PN_12/",
+    # source_folder + "AFSCN_DSN_8_HRS_R_5_RR_6_PN_12/"]  
 
     # plot_covariance_schedule_from_list_of_folder(
-    # folder_list_DSN_8_HRS_ONLY_R_NOISE_LVL,
+    # folder_list_AFSCN_DSN_8_HRS_R_NOISE_LVL,
     # source_folder,
     # True,
     # kept = 6000,
-    # outputname = "DSN_8_HRS_ONLY_R_NOISE_LVL")
+    # outputname = "AFSCN_DSN_8_HRS_R_NOISE_LVL")
 
 
-    # folder_list_AFSCN_8_HRS_ONLY_R_NOISE_LVL  = [
+    # folder_list_AFSCN_ONLY_8_HRS_R_NOISE_LVL  = [
     # source_folder + "AFSCN_ONLY_8_HRS_R_2_RR_6_PN_12/",
     # source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_6_PN_12/",
     # source_folder + "AFSCN_ONLY_8_HRS_R_4_RR_6_PN_12/",
@@ -713,29 +713,29 @@ def plot_covariance_overlays():
 
 
     # plot_covariance_schedule_from_list_of_folder(
-    # folder_list_AFSCN_8_HRS_ONLY_R_NOISE_LVL,
+    # folder_list_AFSCN_ONLY_8_HRS_R_NOISE_LVL,
     # source_folder,
     # True,
     # kept = 6000,
-    # outputname = "AFSCN_8_HRS_ONLY_R_NOISE_LVL")
+    # outputname = "AFSCN_ONLY_8_HRS_R_NOISE_LVL")
 
 
     ####################
     # RR Noise tradoff #
     ####################
 
-    # folder_list_DSN_8_HRS_ONLY_RR_NOISE_LVL  = [
-    # source_folder + "DSN_ONLY_8_HRS_R_3_RR_5_PN_12/",
-    # source_folder + "DSN_ONLY_8_HRS_R_3_RR_6_PN_12/",
-    # source_folder + "DSN_ONLY_8_HRS_R_3_RR_7_PN_12/"
-    # source_folder + "DSN_ONLY_8_HRS_R_3_RR_8_PN_12/"]  
+    # folder_list_AFSCN_DSN_8_HRS_RR_NOISE_LVL  = [
+    # source_folder + "AFSCN_DSN_8_HRS_R_3_RR_5_PN_12/",
+    # source_folder + "AFSCN_DSN_8_HRS_R_3_RR_6_PN_12/",
+    # source_folder + "AFSCN_DSN_8_HRS_R_3_RR_7_PN_12/"
+    # source_folder + "AFSCN_DSN_8_HRS_R_3_RR_8_PN_12/"]  
 
     # plot_covariance_schedule_from_list_of_folder(
-    # folder_list_DSN_8_HRS_ONLY_RR_NOISE_LVL,
+    # folder_list_AFSCN_DSN_8_HRS_RR_NOISE_LVL,
     # source_folder,
     # True,
     # kept = 6000,
-    # outputname = "DSN_8_HRS_ONLY_RR_NOISE_LVL")
+    # outputname = "AFSCN_DSN_8_HRS_RR_NOISE_LVL")
 
     # folder_list_AFSCN_8_HRS_ONLY_RR_NOISE_LVL  = [
     # source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_5_PN_12/",
@@ -755,18 +755,18 @@ def plot_covariance_overlays():
     # Process Noise tradoff #
     ####################
 
-    # folder_list_DSN_8_HRS_ONLY_PN_LVL  = [
-    # source_folder + "DSN_ONLY_8_HRS_R_3_RR_6_PN_12/",
-    # source_folder + "DSN_ONLY_8_HRS_R_3_RR_6_PN_10/",
-    # source_folder + "DSN_ONLY_8_HRS_R_3_RR_6_PN_8/"
-    # source_folder + "DSN_ONLY_8_HRS_R_3_RR_6_PN_6/"]
+    # folder_list_AFSCN_DSN_8_HRS_PN_LVL  = [
+    # source_folder + "AFSCN_DSN_8_HRS_R_3_RR_6_PN_12/",
+    # source_folder + "AFSCN_DSN_8_HRS_R_3_RR_6_PN_10/",
+    # source_folder + "AFSCN_DSN_8_HRS_R_3_RR_6_PN_8/"
+    # source_folder + "AFSCN_DSN_8_HRS_R_3_RR_6_PN_6/"]
 
     # plot_covariance_schedule_from_list_of_folder(
-    # folder_list_DSN_8_HRS_ONLY_PN_LVL,
+    # folder_list_AFSCN_DSN_8_HRS_PN_LVL,
     # source_folder,
     # True,
     # kept = 6000,
-    # outputname = "DSN_8_HRS_ONLY_PN_LVL")
+    # outputname = "AFSCN_DSN_8_HRS_PN_LVL")
 
     # folder_list_AFSCN_8_HRS_ONLY_NOISE_LVL  = [
     # source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_6_PN_12/",
@@ -876,7 +876,7 @@ def plot_covariance_overlay_from_list_of_folder(folder_list,inputfolder,
                 sd_states_vel = np.array([np.sqrt(np.trace(np.reshape(cov[i,:],[N,N])[3:6,3:6])) for i in range(epoch.shape[0])])
 
                 # Extracting legend
-                if outputname == "AFSCN_ONLY" or outputname == "DSN_ONLY":
+                if outputname == "AFSCN_ONLY" or outputname == "AFSCN_DSN":
                     if "4_HRS" in foldername:
                         label = "4 hours"
                     elif "8_HRS" in foldername:
@@ -884,7 +884,7 @@ def plot_covariance_overlay_from_list_of_folder(folder_list,inputfolder,
                     elif "24_HRS" in foldername:
                         label = "24 hours"
 
-                elif outputname == "DSN_8_HRS_ONLY_R_NOISE_LVL" or outputname == "AFSCN_8_HRS_ONLY_R_NOISE_LVL":
+                elif outputname == "AFSCN_DSN_8_HRS_R_NOISE_LVL" or outputname == "AFSCN_ONLY_8_HRS_R_NOISE_LVL":
                     if "_R_5" in foldername:
                         label = r"$10^{-5}\ \mathrm{km}$"
                     elif "_R_4" in foldername:
@@ -894,7 +894,7 @@ def plot_covariance_overlay_from_list_of_folder(folder_list,inputfolder,
                     elif "_R_2" in foldername:
                         label = r"$10^{-2}\ \mathrm{km}$"
 
-                elif outputname == "DSN_8_HRS_ONLY_RR_NOISE_LVL" or outputname == "AFSCN_8_HRS_ONLY_RR_NOISE_LVL":
+                elif outputname == "AFSCN_DSN_8_HRS_RR_NOISE_LVL" or outputname == "AFSCN_8_HRS_ONLY_RR_NOISE_LVL":
                     if "RR_8" in foldername:
                         label = r"$10^{-8}\ \mathrm{km/s}$"
                     elif "RR_7" in foldername:
@@ -904,7 +904,7 @@ def plot_covariance_overlay_from_list_of_folder(folder_list,inputfolder,
                     elif "RR_5" in foldername:
                         label = r"$10^{-5}\ \mathrm{km/s}$"
 
-                elif outputname == "DSN_8_HRS_ONLY_PN_LVL" or outputname == "AFSCN_8_HRS_ONLY_PN_LVL":
+                elif outputname == "AFSCN_DSN_8_HRS_PN_LVL" or outputname == "AFSCN_8_HRS_ONLY_PN_LVL":
                     if "PN_12" in foldername:
                         label = r"$10^{-12}\ \mathrm{km/s^2}$"
                     elif "PN_10" in foldername:
