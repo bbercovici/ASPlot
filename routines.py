@@ -662,7 +662,8 @@ def plot_covariance_overlays():
     source_folder,
     True,
     kept = 4000,
-    outputname = "AFSCN_ONLY") 
+    outputname = "AFSCN_ONLY",
+    outputfolder = source_folder) 
 
     folder_list_AFSCN_DSN  = [
     source_folder + "AFSCN_DSN_24_HRS_R_3_RR_6_PN_12/",
@@ -674,7 +675,8 @@ def plot_covariance_overlays():
     source_folder,
     True,
     kept = 4000,
-    outputname = "AFSCN_DSN")
+    outputname = "AFSCN_DSN",
+    outputfolder = source_folder)
 
 
     ###################
