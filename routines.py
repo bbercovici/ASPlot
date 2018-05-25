@@ -652,29 +652,29 @@ def plot_covariance_overlays():
 
     source_folder = "/home/anfr8485/FALCON/Filter/test/advspc_results/"
 
-    # folder_list_AFSCN_ONLY  = [
-    # source_folder + "AFSCN_ONLY_4_HRS_R_3_RR_6_PN_12/",
-    # source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_6_PN_12/",
-    # source_folder + "AFSCN_ONLY_24_HRS_R_3_RR_6_PN_12/"] 
+    folder_list_AFSCN_ONLY  = [
+    source_folder + "AFSCN_ONLY_24_HRS_R_3_RR_6_PN_12/",
+    source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_6_PN_12/",
+    source_folder + "AFSCN_ONLY_4_HRS_R_3_RR_6_PN_12/"] 
 
-    # plot_covariance_overlay_from_list_of_folder(
-    # folder_list_AFSCN_ONLY,
-    # source_folder,
-    # True,
-    # kept = 4000,
-    # outputname = "AFSCN_ONLY") 
+    plot_covariance_overlay_from_list_of_folder(
+    folder_list_AFSCN_ONLY,
+    source_folder,
+    True,
+    kept = 4000,
+    outputname = "AFSCN_ONLY") 
 
-    # folder_list_AFSCN_DSN  = [
-    # source_folder + "AFSCN_DSN_4_HRS_R_3_RR_6_PN_12/",
-    # source_folder + "AFSCN_DSN_8_HRS_R_3_RR_6_PN_12/",
-    # source_folder + "AFSCN_DSN_24_HRS_R_3_RR_6_PN_12/"]
+    folder_list_AFSCN_DSN  = [
+    source_folder + "AFSCN_DSN_24_HRS_R_3_RR_6_PN_12/",
+    source_folder + "AFSCN_DSN_8_HRS_R_3_RR_6_PN_12/",
+    source_folder + "AFSCN_DSN_4_HRS_R_3_RR_6_PN_12/"]
 
-    # plot_covariance_overlay_from_list_of_folder(
-    # folder_list_AFSCN_DSN,
-    # source_folder,
-    # True,
-    # kept = 4000,
-    # outputname = "AFSCN_DSN")
+    plot_covariance_overlay_from_list_of_folder(
+    folder_list_AFSCN_DSN,
+    source_folder,
+    True,
+    kept = 4000,
+    outputname = "AFSCN_DSN")
 
 
     ###################
@@ -682,10 +682,10 @@ def plot_covariance_overlays():
     ###################
 
     folder_list_AFSCN_DSN_8_HRS_R_NOISE_LVL  = [
-    source_folder + "AFSCN_DSN_8_HRS_R_2_RR_6_PN_12/",
-    source_folder + "AFSCN_DSN_8_HRS_R_3_RR_6_PN_12/",
+    source_folder + "AFSCN_DSN_8_HRS_R_5_RR_6_PN_12/",
     source_folder + "AFSCN_DSN_8_HRS_R_4_RR_6_PN_12/",
-    source_folder + "AFSCN_DSN_8_HRS_R_5_RR_6_PN_12/"]  
+    source_folder + "AFSCN_DSN_8_HRS_R_3_RR_6_PN_12/",
+    source_folder + "AFSCN_DSN_8_HRS_R_2_RR_6_PN_12/"]  
 
     plot_covariance_overlay_from_list_of_folder(
     folder_list_AFSCN_DSN_8_HRS_R_NOISE_LVL,
@@ -697,10 +697,10 @@ def plot_covariance_overlays():
 
 
     folder_list_AFSCN_ONLY_8_HRS_R_NOISE_LVL  = [
-    source_folder + "AFSCN_ONLY_8_HRS_R_2_RR_6_PN_12/",
-    source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_6_PN_12/",
+    source_folder + "AFSCN_ONLY_8_HRS_R_5_RR_6_PN_12/",
     source_folder + "AFSCN_ONLY_8_HRS_R_4_RR_6_PN_12/",
-    source_folder + "AFSCN_ONLY_8_HRS_R_5_RR_6_PN_12/"]  
+    source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_6_PN_12/",
+    source_folder + "AFSCN_ONLY_8_HRS_R_2_RR_6_PN_12/"]  
 
     plot_covariance_overlay_from_list_of_folder(
     folder_list_AFSCN_ONLY_8_HRS_R_NOISE_LVL,
@@ -716,10 +716,10 @@ def plot_covariance_overlays():
     ####################
 
     folder_list_AFSCN_DSN_8_HRS_RR_NOISE_LVL  = [
-    source_folder + "AFSCN_DSN_8_HRS_R_3_RR_5_PN_12/",
-    source_folder + "AFSCN_DSN_8_HRS_R_3_RR_6_PN_12/",
+    source_folder + "AFSCN_DSN_8_HRS_R_3_RR_8_PN_12/",
     source_folder + "AFSCN_DSN_8_HRS_R_3_RR_7_PN_12/",
-    source_folder + "AFSCN_DSN_8_HRS_R_3_RR_8_PN_12/"]  
+    source_folder + "AFSCN_DSN_8_HRS_R_3_RR_6_PN_12/",
+    source_folder + "AFSCN_DSN_8_HRS_R_3_RR_5_PN_12/"]  
 
     plot_covariance_overlay_from_list_of_folder(
     folder_list_AFSCN_DSN_8_HRS_RR_NOISE_LVL,
@@ -730,10 +730,10 @@ def plot_covariance_overlays():
     outputfolder = source_folder)
 
     folder_list_AFSCN_8_HRS_ONLY_RR_NOISE_LVL  = [
-    source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_5_PN_12/",
-    source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_6_PN_12/",
+    source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_8_PN_12/",
     source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_7_PN_12/",
-    source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_8_PN_12/"]  
+    source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_6_PN_12/",
+    source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_5_PN_12/"]  
 
     plot_covariance_overlay_from_list_of_folder(
     folder_list_AFSCN_8_HRS_ONLY_RR_NOISE_LVL,
@@ -762,7 +762,7 @@ def plot_covariance_overlays():
     outputname = "AFSCN_DSN_8_HRS_PN_LVL",
     outputfolder = source_folder)
 
-    folder_list_AFSCN_8_HRS_ONLY_NOISE_LVL  = [
+    folder_list_AFSCN_8_HRS_ONLY_PN_LVL  = [
     source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_6_PN_12/",
     source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_6_PN_10/",
     source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_6_PN_8/",
@@ -805,9 +805,9 @@ def plot_covariance_overlay_from_list_of_folder(folder_list,
     epochs = []
     sd_states_all_cases = []
 
-    labels =  create_labels(convert_to_RTN)
+    labels = create_labels(convert_to_RTN)
     plt.figure()
-    plt.suptitle(outputname)
+    plt.suptitle(r"3$\sigma$ RSS for " + outputname)
 
     if plot_RSS:
 
