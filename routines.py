@@ -780,8 +780,9 @@ def plot_covariance_overlay_from_list_of_folder(folder_list,inputfolder,
 
             if plot_RSS:
 
-                sd_states_pos = [np.sqrt(np.trace(np.reshape(cov[i,:],[N,N])[0:3,0:3])) for i in range(epoch.shape[0])]
-                sd_states_vel = [np.sqrt(np.trace(np.reshape(cov[i,:],[N,N])[3:6,3:6])) for i in range(epoch.shape[0])]
+                sd_states_pos = np.array([np.sqrt(np.trace(np.reshape(cov[i,:],[N,N])[0:3,0:3])) for i in range(epoch.shape[0])])
+                sd_states_vel = np.array([np.sqrt(np.trace(np.reshape(cov[i,:],[N,N])[3:6,3:6])) for i in range(epoch.shape[0])])
+
 
                 # Plot e1 pos component
                 if log_scale:
