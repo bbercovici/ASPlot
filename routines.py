@@ -652,8 +652,8 @@ def plot_covariance_overlays():
     "/home/anfr8485/FALCON/Filter/test/advspc_results_test/AFSCN_DSN_24_HRS_R_4_RR_7_PN_10/"]  
 
     plot_covariance_overlay_from_list_of_folder(folder_list_AFSCN_ONLY,
-        "/home/anfr8485/FALCON/Filter/test/advspc_results/",
-        True,kept = 3000,outputname = "AFSCN_ONLY")
+        "/home/anfr8485/FALCON/Filter/test/advspc_results_test/",
+        True,kept = 3000,outputname = "AFSCN_ONLY",plot_RSS = True)
 
 
     # folder_list_AFSCN_ONLY  = ["/home/anfr8485/FALCON/Filter/test/advspc_results/AFSCN_ONLY_4_HRS_R_3_RR_6_PN_12/",
