@@ -650,7 +650,7 @@ Inputs:
 - log_scale : True if covariances must be plotted in semilogy scale
 - kept : determines the number of measurements to kept between two consecutive kept measurements (kept == -1: no discarding)
 '''
-def plot_covariance_schedule_from_list_of_folder(folder_list,convert_to_RTN,log_scale = True,outputname = None,kept = - 1):
+def plot_covariance_schedule_from_list_of_folder(folder_list,inputfolder,convert_to_RTN,log_scale = True,outputname = None,kept = - 1):
     covs = []
     cases = []
     ref_trajs = []
