@@ -925,17 +925,17 @@ def plot_covariance_overlay_from_list_of_folder(folder_list,inputfolder,
 
                 # Plot e1 pos component
                 if log_scale:
-                    ax_pos_RSS.semilogy(epoch,3 * sd_states_pos,'.')
+                    ax_pos_RSS.semilogy(epoch,3 * sd_states_pos,'.',label = label)
                 else:
-                    ax_pos_RSS.plot(epoch,3 * sd_states_pos,'.')
+                    ax_pos_RSS.plot(epoch,3 * sd_states_pos,'.',label = label)
 
 
 
 
                 if log_scale:
-                    ax_vel_RSS.semilogy(epoch,3 * sd_states_vel,'.',label = label)
+                    ax_vel_RSS.semilogy(epoch,3 * sd_states_vel,'.')
                 else:
-                    ax_vel_RSS.plot(epoch,3 * sd_states_vel,'.',label = label)
+                    ax_vel_RSS.plot(epoch,3 * sd_states_vel,'.')
 
         
             else:
