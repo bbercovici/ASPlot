@@ -646,26 +646,11 @@ Generates the covariance overlays for the required combination of cases
 '''
 def plot_covariance_overlays():
 
-    source_folder = "/home/anfr8485/FALCON/Filter/test/advspc_results/"
-
-    folder_list_AFSCN_ONLY  = [
-    source_folder + "AFSCN_ONLY_8_HRS_R_2_RR_6_PN_12/",
-    source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_6_PN_12/",
-    source_folder + "AFSCN_ONLY_8_HRS_R_4_RR_6_PN_12/",
-    source_folder + "AFSCN_ONLY_8_HRS_R_5_RR_6_PN_12/"]  
-
-    plot_covariance_overlay_from_list_of_folder(folder_list_AFSCN_ONLY,
-        source_folder,
-        True,
-        kept = 4000,
-        outputname = "AFSCN_ONLY_8_HRS_R_NOISE_LVL",
-        plot_RSS = True)
-
     #########################
     # Hours-per-day tradoff #
     #########################
 
-    # source_folder = "/home/anfr8485/FALCON/Filter/test/advspc_results/"
+    source_folder = "/home/anfr8485/FALCON/Filter/test/advspc_results/"
 
     # folder_list_AFSCN_ONLY  = [
     # source_folder + "AFSCN_ONLY_4_HRS_R_3_RR_6_PN_12/",
@@ -696,95 +681,100 @@ def plot_covariance_overlays():
     # R Noise tradoff #
     ###################
 
-    # folder_list_AFSCN_DSN_8_HRS_R_NOISE_LVL  = [
-    # source_folder + "AFSCN_DSN_8_HRS_R_2_RR_6_PN_12/",
-    # source_folder + "AFSCN_DSN_8_HRS_R_3_RR_6_PN_12/",
-    # source_folder + "AFSCN_DSN_8_HRS_R_4_RR_6_PN_12/",
-    # source_folder + "AFSCN_DSN_8_HRS_R_5_RR_6_PN_12/"]  
+    folder_list_AFSCN_DSN_8_HRS_R_NOISE_LVL  = [
+    source_folder + "AFSCN_DSN_8_HRS_R_2_RR_6_PN_12/",
+    source_folder + "AFSCN_DSN_8_HRS_R_3_RR_6_PN_12/",
+    source_folder + "AFSCN_DSN_8_HRS_R_4_RR_6_PN_12/",
+    source_folder + "AFSCN_DSN_8_HRS_R_5_RR_6_PN_12/"]  
 
-    # plot_covariance_schedule_from_list_of_folder(
-    # folder_list_AFSCN_DSN_8_HRS_R_NOISE_LVL,
-    # source_folder,
-    # True,
-    # kept = 4000,
-    # outputname = "AFSCN_DSN_8_HRS_R_NOISE_LVL")
-
-
-    # folder_list_AFSCN_ONLY_8_HRS_R_NOISE_LVL  = [
-    # source_folder + "AFSCN_ONLY_8_HRS_R_2_RR_6_PN_12/",
-    # source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_6_PN_12/",
-    # source_folder + "AFSCN_ONLY_8_HRS_R_4_RR_6_PN_12/",
-    # source_folder + "AFSCN_ONLY_8_HRS_R_5_RR_6_PN_12/"]  
+    plot_covariance_schedule_from_list_of_folder(
+    folder_list_AFSCN_DSN_8_HRS_R_NOISE_LVL,
+    source_folder,
+    True,
+    kept = 4000,
+    outputname = "AFSCN_DSN_8_HRS_R_NOISE_LVL",
+    outputfolder = source_folder)
 
 
-    # plot_covariance_schedule_from_list_of_folder(
-    # folder_list_AFSCN_ONLY_8_HRS_R_NOISE_LVL,
-    # source_folder,
-    # True,
-    # kept = 4000,
-    # outputname = "AFSCN_ONLY_8_HRS_R_NOISE_LVL")
+    folder_list_AFSCN_ONLY_8_HRS_R_NOISE_LVL  = [
+    source_folder + "AFSCN_ONLY_8_HRS_R_2_RR_6_PN_12/",
+    source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_6_PN_12/",
+    source_folder + "AFSCN_ONLY_8_HRS_R_4_RR_6_PN_12/",
+    source_folder + "AFSCN_ONLY_8_HRS_R_5_RR_6_PN_12/"]  
+
+    plot_covariance_schedule_from_list_of_folder(
+    folder_list_AFSCN_ONLY_8_HRS_R_NOISE_LVL,
+    source_folder,
+    True,
+    kept = 4000,
+    outputname = "AFSCN_ONLY_8_HRS_R_NOISE_LVL",
+    outputfolder = source_folder)
 
 
     ####################
     # RR Noise tradoff #
     ####################
 
-    # folder_list_AFSCN_DSN_8_HRS_RR_NOISE_LVL  = [
-    # source_folder + "AFSCN_DSN_8_HRS_R_3_RR_5_PN_12/",
-    # source_folder + "AFSCN_DSN_8_HRS_R_3_RR_6_PN_12/",
-    # source_folder + "AFSCN_DSN_8_HRS_R_3_RR_7_PN_12/"
-    # source_folder + "AFSCN_DSN_8_HRS_R_3_RR_8_PN_12/"]  
+    folder_list_AFSCN_DSN_8_HRS_RR_NOISE_LVL  = [
+    source_folder + "AFSCN_DSN_8_HRS_R_3_RR_5_PN_12/",
+    source_folder + "AFSCN_DSN_8_HRS_R_3_RR_6_PN_12/",
+    source_folder + "AFSCN_DSN_8_HRS_R_3_RR_7_PN_12/"
+    source_folder + "AFSCN_DSN_8_HRS_R_3_RR_8_PN_12/"]  
 
-    # plot_covariance_schedule_from_list_of_folder(
-    # folder_list_AFSCN_DSN_8_HRS_RR_NOISE_LVL,
-    # source_folder,
-    # True,
-    # kept = 4000,
-    # outputname = "AFSCN_DSN_8_HRS_RR_NOISE_LVL")
+    plot_covariance_schedule_from_list_of_folder(
+    folder_list_AFSCN_DSN_8_HRS_RR_NOISE_LVL,
+    source_folder,
+    True,
+    kept = 4000,
+    outputname = "AFSCN_DSN_8_HRS_RR_NOISE_LVL",
+    outputfolder = source_folder)
 
-    # folder_list_AFSCN_8_HRS_ONLY_RR_NOISE_LVL  = [
-    # source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_5_PN_12/",
-    # source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_6_PN_12/",
-    # source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_7_PN_12/"
-    # source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_8_PN_12/"]  
+    folder_list_AFSCN_8_HRS_ONLY_RR_NOISE_LVL  = [
+    source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_5_PN_12/",
+    source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_6_PN_12/",
+    source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_7_PN_12/"
+    source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_8_PN_12/"]  
 
-    # plot_covariance_schedule_from_list_of_folder(
-    # folder_list_AFSCN_8_HRS_ONLY_RR_NOISE_LVL,
-    # source_folder,
-    # True,
-    # kept = 4000,
-    # outputname = "AFSCN_8_HRS_ONLY_RR_NOISE_LVL")
+    plot_covariance_schedule_from_list_of_folder(
+    folder_list_AFSCN_8_HRS_ONLY_RR_NOISE_LVL,
+    source_folder,
+    True,
+    kept = 4000,
+    outputname = "AFSCN_8_HRS_ONLY_RR_NOISE_LVL",
+    outputfolder = source_folder)
 
 
     ####################
     # Process Noise tradoff #
     ####################
 
-    # folder_list_AFSCN_DSN_8_HRS_PN_LVL  = [
-    # source_folder + "AFSCN_DSN_8_HRS_R_3_RR_6_PN_12/",
-    # source_folder + "AFSCN_DSN_8_HRS_R_3_RR_6_PN_10/",
-    # source_folder + "AFSCN_DSN_8_HRS_R_3_RR_6_PN_8/"
-    # source_folder + "AFSCN_DSN_8_HRS_R_3_RR_6_PN_6/"]
+    folder_list_AFSCN_DSN_8_HRS_PN_LVL  = [
+    source_folder + "AFSCN_DSN_8_HRS_R_3_RR_6_PN_12/",
+    source_folder + "AFSCN_DSN_8_HRS_R_3_RR_6_PN_10/",
+    source_folder + "AFSCN_DSN_8_HRS_R_3_RR_6_PN_8/"
+    source_folder + "AFSCN_DSN_8_HRS_R_3_RR_6_PN_6/"]
 
-    # plot_covariance_schedule_from_list_of_folder(
-    # folder_list_AFSCN_DSN_8_HRS_PN_LVL,
-    # source_folder,
-    # True,
-    # kept = 4000,
-    # outputname = "AFSCN_DSN_8_HRS_PN_LVL")
+    plot_covariance_schedule_from_list_of_folder(
+    folder_list_AFSCN_DSN_8_HRS_PN_LVL,
+    source_folder,
+    True,
+    kept = 4000,
+    outputname = "AFSCN_DSN_8_HRS_PN_LVL",
+    outputfolder = source_folder)
 
-    # folder_list_AFSCN_8_HRS_ONLY_NOISE_LVL  = [
-    # source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_6_PN_12/",
-    # source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_6_PN_10/",
-    # source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_6_PN_8/",
-    # source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_6_PN_6/"]  
+    folder_list_AFSCN_8_HRS_ONLY_NOISE_LVL  = [
+    source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_6_PN_12/",
+    source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_6_PN_10/",
+    source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_6_PN_8/",
+    source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_6_PN_6/"]  
 
-    # plot_covariance_schedule_from_list_of_folder(
-    # folder_list_AFSCN_8_HRS_ONLY_PN_LVL,
-    # source_folder,
-    # True,
-    # kept = 4000,
-    # outputname = "AFSCN_8_HRS_ONLY_PN_LVL")
+    plot_covariance_schedule_from_list_of_folder(
+    folder_list_AFSCN_8_HRS_ONLY_PN_LVL,
+    source_folder,
+    True,
+    kept = 4000,
+    outputname = "AFSCN_8_HRS_ONLY_PN_LVL",
+    outputfolder = source_folder)
 
 
 '''
@@ -799,9 +789,16 @@ Inputs:
 - log_scale : True if covariances must be plotted in semilogy scale
 - kept : determines the number of measurements to kept between two consecutive kept measurements (kept == -1: no discarding)
 - plot_RSS : if True, will only plot position and velocity RSS
+- outputfolder : folder where to save figure
 '''
-def plot_covariance_overlay_from_list_of_folder(folder_list,inputfolder,
-    convert_to_RTN,log_scale = True,outputname = None,kept = - 1,plot_RSS = True):
+def plot_covariance_overlay_from_list_of_folder(folder_list,
+    inputfolder,
+    convert_to_RTN,
+    log_scale = True,
+    outputname = None,
+    kept = - 1,
+    plot_RSS = True,
+    outputfolder = None):
     covs = []
     cases = []
     ref_trajs = []
@@ -994,7 +991,7 @@ def plot_covariance_overlay_from_list_of_folder(folder_list,inputfolder,
     ax_pos_RSS.legend(loc = "upper center",bbox_to_anchor = (0.5,1.2),ncol = ncol)  
              
     if outputname is not None:
-        plt.savefig(outputname + ".pdf",bbox_inches='tight')
+        plt.savefig(source_folder + outputname + ".pdf",bbox_inches='tight')
     else:
         plt.show()
 
