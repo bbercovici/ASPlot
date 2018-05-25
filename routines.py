@@ -991,7 +991,7 @@ def plot_covariance_overlay_from_list_of_folder(folder_list,
     ax_pos_RSS.legend(loc = "upper center",bbox_to_anchor = (0.5,1.2),ncol = ncol)  
              
     if outputname is not None:
-        plt.savefig(source_folder + outputname + ".pdf",bbox_inches='tight')
+        plt.savefig(outputfolder + outputname + ".pdf",bbox_inches='tight')
     else:
         plt.show()
 
