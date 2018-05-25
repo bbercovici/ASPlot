@@ -855,134 +855,139 @@ def plot_covariance_overlay_from_list_of_folder(folder_list,inputfolder,
 
     # Loading and plotting
     ncol = 0
-    for folder in os.walk(inputfolder) :
-        for subfolder in folder[1]:
-            foldername = folder[0] + subfolder + "/"
-
-            if foldername not in folder_list:
-                continue
-
-            print("Loading case " + subfolder)
-
-            # Loading
-            epoch,stm,cov,deviations,ref_traj,mnvr = load_data(foldername,only_covs = True,kept = kept)
-            epoch = epoch - epoch[0]
-
-            # Converting
-            if convert_to_RTN:
-                dummy = None
-                cov,dummy = convert2RTN(cov,dummy,ref_traj)
-
-            # Extracting SDs
-            N = (int)(np.sqrt(cov.shape[1]))
-
-            if plot_RSS:
-
-                sd_states_pos = np.array([np.sqrt(np.trace(np.reshape(cov[i,:],[N,N])[0:3,0:3])) for i in range(epoch.shape[0])])
-                sd_states_vel = np.array([np.sqrt(np.trace(np.reshape(cov[i,:],[N,N])[3:6,3:6])) for i in range(epoch.shape[0])])
-
-                # Extracting legend
-                if outputname == "AFSCN_ONLY" or outputname == "AFSCN_DSN":
-                    if "4_HRS" in foldername:
-                        label = "4 hours"
-                    elif "8_HRS" in foldername:
-                        label = "8 hours"
-                    elif "24_HRS" in foldername:
-                        label = "24 hours"
-                    ncol = ncol + 1
-
-                elif outputname == "AFSCN_DSN_8_HRS_R_NOISE_LVL" or outputname == "AFSCN_ONLY_8_HRS_R_NOISE_LVL":
-                    if "_R_5" in foldername:
-                        label = r"$10^{-5}\ \mathrm{km}$"
-                    elif "_R_4" in foldername:
-                        label = r"$10^{-4}\ \mathrm{km}$"
-                    elif "_R_3" in foldername:
-                        label = r"$10^{-3}\ \mathrm{km}$"
-                    elif "_R_2" in foldername:
-                        label = r"$10^{-2}\ \mathrm{km}$"
-                    ncol = ncol + 1
 
 
-                elif outputname == "AFSCN_DSN_8_HRS_RR_NOISE_LVL" or outputname == "AFSCN_8_HRS_ONLY_RR_NOISE_LVL":
-                    if "RR_8" in foldername:
-                        label = r"$10^{-8}\ \mathrm{km/s}$"
-                    elif "RR_7" in foldername:
-                        label = r"$10^{-7}\ \mathrm{km/s}$"
-                    elif "RR_6" in foldername:
-                        label = r"$10^{-6}\ \mathrm{km/s}$"
-                    elif "RR_5" in foldername:
-                        label = r"$10^{-5}\ \mathrm{km/s}$"
-                    ncol = ncol + 1
+    for foldername_from_list in folder_list:
+
+        for folder in os.walk(inputfolder) :
+            for subfolder in folder[1]:
+
+                foldername = folder[0] + subfolder + "/"
+
+                if foldername != foldername_from_list:
+                    continue
+
+                print("Loading case " + subfolder)
+
+                # Loading
+                epoch,stm,cov,deviations,ref_traj,mnvr = load_data(foldername,only_covs = True,kept = kept)
+                epoch = epoch - epoch[0]
+
+                # Converting
+                if convert_to_RTN:
+                    dummy = None
+                    cov,dummy = convert2RTN(cov,dummy,ref_traj)
+
+                # Extracting SDs
+                N = (int)(np.sqrt(cov.shape[1]))
+
+                if plot_RSS:
+
+                    sd_states_pos = np.array([np.sqrt(np.trace(np.reshape(cov[i,:],[N,N])[0:3,0:3])) for i in range(epoch.shape[0])])
+                    sd_states_vel = np.array([np.sqrt(np.trace(np.reshape(cov[i,:],[N,N])[3:6,3:6])) for i in range(epoch.shape[0])])
+
+                    # Extracting legend
+                    if outputname == "AFSCN_ONLY" or outputname == "AFSCN_DSN":
+                        if "4_HRS" in foldername:
+                            label = "4 hours"
+                        elif "8_HRS" in foldername:
+                            label = "8 hours"
+                        elif "24_HRS" in foldername:
+                            label = "24 hours"
+                        ncol = ncol + 1
+
+                    elif outputname == "AFSCN_DSN_8_HRS_R_NOISE_LVL" or outputname == "AFSCN_ONLY_8_HRS_R_NOISE_LVL":
+                        if "_R_5" in foldername:
+                            label = r"$10^{-5}\ \mathrm{km}$"
+                        elif "_R_4" in foldername:
+                            label = r"$10^{-4}\ \mathrm{km}$"
+                        elif "_R_3" in foldername:
+                            label = r"$10^{-3}\ \mathrm{km}$"
+                        elif "_R_2" in foldername:
+                            label = r"$10^{-2}\ \mathrm{km}$"
+                        ncol = ncol + 1
 
 
-                elif outputname == "AFSCN_DSN_8_HRS_PN_LVL" or outputname == "AFSCN_8_HRS_ONLY_PN_LVL":
-                    if "PN_12" in foldername:
-                        label = r"$10^{-12}\ \mathrm{km/s^2}$"
-                    elif "PN_10" in foldername:
-                        label = r"$10^{-10}\ \mathrm{km/s^2}$"
-                    elif "PN_8" in foldername:
-                        label = r"$10^{-8}\ \mathrm{km/s^2}$"
-                    elif "PN_6" in foldername:
-                        label = r"$10^{-6}\ \mathrm{km/s^2}$"
-                    ncol = ncol + 1
+                    elif outputname == "AFSCN_DSN_8_HRS_RR_NOISE_LVL" or outputname == "AFSCN_8_HRS_ONLY_RR_NOISE_LVL":
+                        if "RR_8" in foldername:
+                            label = r"$10^{-8}\ \mathrm{km/s}$"
+                        elif "RR_7" in foldername:
+                            label = r"$10^{-7}\ \mathrm{km/s}$"
+                        elif "RR_6" in foldername:
+                            label = r"$10^{-6}\ \mathrm{km/s}$"
+                        elif "RR_5" in foldername:
+                            label = r"$10^{-5}\ \mathrm{km/s}$"
+                        ncol = ncol + 1
+
+
+                    elif outputname == "AFSCN_DSN_8_HRS_PN_LVL" or outputname == "AFSCN_8_HRS_ONLY_PN_LVL":
+                        if "PN_12" in foldername:
+                            label = r"$10^{-12}\ \mathrm{km/s^2}$"
+                        elif "PN_10" in foldername:
+                            label = r"$10^{-10}\ \mathrm{km/s^2}$"
+                        elif "PN_8" in foldername:
+                            label = r"$10^{-8}\ \mathrm{km/s^2}$"
+                        elif "PN_6" in foldername:
+                            label = r"$10^{-6}\ \mathrm{km/s^2}$"
+                        ncol = ncol + 1
 
 
 
-                # Plot e1 pos component
-                if log_scale:
-                    ax_pos_RSS.semilogy(epoch,3 * sd_states_pos,'.',label = label)
+                    # Plot e1 pos component
+                    if log_scale:
+                        ax_pos_RSS.semilogy(epoch,3 * sd_states_pos,'.',label = label)
+                    else:
+                        ax_pos_RSS.plot(epoch,3 * sd_states_pos,'.',label = label)
+
+
+
+
+                    if log_scale:
+                        ax_vel_RSS.semilogy(epoch,3 * sd_states_vel,'.')
+                    else:
+                        ax_vel_RSS.plot(epoch,3 * sd_states_vel,'.')
+
+            
                 else:
-                    ax_pos_RSS.plot(epoch,3 * sd_states_pos,'.',label = label)
 
+                    sd_states = [np.sqrt(np.diag(np.reshape(cov[i,:],[N,N]))) for i in range(epoch.shape[0])]
+                    sd_states = np.vstack(sd_states)
 
+                    # Plot e1 pos component
+                    if log_scale:
+                        ax_x_pos.semilogy(epoch,3 * sd_states[:,0],'.')
+                    else:
+                        ax_x_pos.plot(epoch,3 * sd_states[:,0],'.')
 
+                    # Plot e2 pos component
+                    if log_scale:
+                        ax_y_pos.semilogy(epoch,3 * sd_states[:,1],'.')
+                    else:
+                        ax_y_pos.plot(epoch,3 * sd_states[:,1],'.')
 
-                if log_scale:
-                    ax_vel_RSS.semilogy(epoch,3 * sd_states_vel,'.')
-                else:
-                    ax_vel_RSS.plot(epoch,3 * sd_states_vel,'.')
+                    # Plot e3 pos component
+                    if log_scale:
+                        ax_z_pos.semilogy(epoch,3 * sd_states[:,2],'.')
+                    else:
+                        ax_z_pos.plot(epoch,3 * sd_states[:,2],'.')
 
-        
-            else:
-
-                sd_states = [np.sqrt(np.diag(np.reshape(cov[i,:],[N,N]))) for i in range(epoch.shape[0])]
-                sd_states = np.vstack(sd_states)
-
-                # Plot e1 pos component
-                if log_scale:
-                    ax_x_pos.semilogy(epoch,3 * sd_states[:,0],'.')
-                else:
-                    ax_x_pos.plot(epoch,3 * sd_states[:,0],'.')
-
-                # Plot e2 pos component
-                if log_scale:
-                    ax_y_pos.semilogy(epoch,3 * sd_states[:,1],'.')
-                else:
-                    ax_y_pos.plot(epoch,3 * sd_states[:,1],'.')
-
-                # Plot e3 pos component
-                if log_scale:
-                    ax_z_pos.semilogy(epoch,3 * sd_states[:,2],'.')
-                else:
-                    ax_z_pos.plot(epoch,3 * sd_states[:,2],'.')
-
-                # Plot e1 vel component
-                if log_scale:
-                    ax_x_vel.semilogy(epoch,3 * sd_states[:,3],'.')
-                else:
-                    ax_x_vel.plot(epoch,3 * sd_states[:,3],'.')
-                
-                # Plot e2 vel component
-                if log_scale:
-                    ax_y_vel.semilogy(epoch,3 * sd_states[:,4],'.')
-                else:
-                    ax_y_vel.plot(epoch,3 * sd_states[:,4],'.')
-                
-                # Plot e3 vel component
-                if log_scale:
-                    ax_z_vel.semilogy(epoch,3 * sd_states[:,5],'.')
-                else:
-                    ax_z_vel.plot(epoch,3 * sd_states[:,5],'.')
+                    # Plot e1 vel component
+                    if log_scale:
+                        ax_x_vel.semilogy(epoch,3 * sd_states[:,3],'.')
+                    else:
+                        ax_x_vel.plot(epoch,3 * sd_states[:,3],'.')
+                    
+                    # Plot e2 vel component
+                    if log_scale:
+                        ax_y_vel.semilogy(epoch,3 * sd_states[:,4],'.')
+                    else:
+                        ax_y_vel.plot(epoch,3 * sd_states[:,4],'.')
+                    
+                    # Plot e3 vel component
+                    if log_scale:
+                        ax_z_vel.semilogy(epoch,3 * sd_states[:,5],'.')
+                    else:
+                        ax_z_vel.plot(epoch,3 * sd_states[:,5],'.')
 
 
 
