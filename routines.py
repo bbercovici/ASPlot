@@ -657,7 +657,7 @@ def plot_covariance_overlays():
     # source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_6_PN_12/",
     # source_folder + "AFSCN_ONLY_24_HRS_R_3_RR_6_PN_12/"] 
 
-    # plot_covariance_schedule_from_list_of_folder(
+    # plot_covariance_overlay_from_list_of_folder(
     # folder_list_AFSCN_ONLY,
     # source_folder,
     # True,
@@ -669,7 +669,7 @@ def plot_covariance_overlays():
     # source_folder + "AFSCN_DSN_8_HRS_R_3_RR_6_PN_12/",
     # source_folder + "AFSCN_DSN_24_HRS_R_3_RR_6_PN_12/"]
 
-    # plot_covariance_schedule_from_list_of_folder(
+    # plot_covariance_overlay_from_list_of_folder(
     # folder_list_AFSCN_DSN,
     # source_folder,
     # True,
@@ -687,7 +687,7 @@ def plot_covariance_overlays():
     source_folder + "AFSCN_DSN_8_HRS_R_4_RR_6_PN_12/",
     source_folder + "AFSCN_DSN_8_HRS_R_5_RR_6_PN_12/"]  
 
-    plot_covariance_schedule_from_list_of_folder(
+    plot_covariance_overlay_from_list_of_folder(
     folder_list_AFSCN_DSN_8_HRS_R_NOISE_LVL,
     source_folder,
     True,
@@ -702,7 +702,7 @@ def plot_covariance_overlays():
     source_folder + "AFSCN_ONLY_8_HRS_R_4_RR_6_PN_12/",
     source_folder + "AFSCN_ONLY_8_HRS_R_5_RR_6_PN_12/"]  
 
-    plot_covariance_schedule_from_list_of_folder(
+    plot_covariance_overlay_from_list_of_folder(
     folder_list_AFSCN_ONLY_8_HRS_R_NOISE_LVL,
     source_folder,
     True,
@@ -721,7 +721,7 @@ def plot_covariance_overlays():
     source_folder + "AFSCN_DSN_8_HRS_R_3_RR_7_PN_12/",
     source_folder + "AFSCN_DSN_8_HRS_R_3_RR_8_PN_12/"]  
 
-    plot_covariance_schedule_from_list_of_folder(
+    plot_covariance_overlay_from_list_of_folder(
     folder_list_AFSCN_DSN_8_HRS_RR_NOISE_LVL,
     source_folder,
     True,
@@ -735,7 +735,7 @@ def plot_covariance_overlays():
     source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_7_PN_12/",
     source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_8_PN_12/"]  
 
-    plot_covariance_schedule_from_list_of_folder(
+    plot_covariance_overlay_from_list_of_folder(
     folder_list_AFSCN_8_HRS_ONLY_RR_NOISE_LVL,
     source_folder,
     True,
@@ -754,7 +754,7 @@ def plot_covariance_overlays():
     source_folder + "AFSCN_DSN_8_HRS_R_3_RR_6_PN_8/",
     source_folder + "AFSCN_DSN_8_HRS_R_3_RR_6_PN_6/"]
 
-    plot_covariance_schedule_from_list_of_folder(
+    plot_covariance_overlay_from_list_of_folder(
     folder_list_AFSCN_DSN_8_HRS_PN_LVL,
     source_folder,
     True,
@@ -768,7 +768,7 @@ def plot_covariance_overlays():
     source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_6_PN_8/",
     source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_6_PN_6/"]  
 
-    plot_covariance_schedule_from_list_of_folder(
+    plot_covariance_overlay_from_list_of_folder(
     folder_list_AFSCN_8_HRS_ONLY_PN_LVL,
     source_folder,
     True,
