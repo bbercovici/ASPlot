@@ -887,7 +887,7 @@ def plot_covariance_overlay_from_list_of_folder(folder_list,
 
                     # Extracting legend
                     if outputname == "AFSCN_ONLY" or outputname == "AFSCN_DSN":
-                        if "4_HRS" in foldername:
+                        if "_4_HRS" in foldername:
                             label = "4 hours"
                         elif "8_HRS" in foldername:
                             label = "8 hours"
