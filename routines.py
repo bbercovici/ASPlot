@@ -690,12 +690,12 @@ def plot_covariance_schedule_from_list_of_folder(folder_list,inputfolder,convert
     # Loading and plotting
     for folder in os.walk(inputfolder) :
         for subfolder in folder[1]:
+            foldername = folder[0] + subfolder + "/"
 
-            if subfolder not in folder_list:
+            if foldername not in folder_list:
                 continue
 
 
-            foldername = folder[0] + subfolder + "/"
             print("Loading case " + subfolder)
 
             # Loading
