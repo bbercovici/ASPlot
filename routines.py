@@ -653,7 +653,7 @@ def plot_covariance_overlays():
 
     plot_covariance_overlay_from_list_of_folder(folder_list_AFSCN_ONLY,
         "/home/anfr8485/FALCON/Filter/test/advspc_results_test/",
-        True,kept = 3000,outputname = "AFSCN_ONLY",plot_RSS = True)
+        True,kept = 6000,outputname = "AFSCN_ONLY",plot_RSS = True)
 
 
     # folder_list_AFSCN_ONLY  = ["/home/anfr8485/FALCON/Filter/test/advspc_results/AFSCN_ONLY_4_HRS_R_3_RR_6_PN_12/",
@@ -675,19 +675,19 @@ def plot_covariance_overlays():
 
     # plot_covariance_schedule_from_list_of_folder(folder_list_AFSCN_ONLY,
     #     "/home/anfr8485/FALCON/Filter/test/advspc_results/",
-    #     True,kept = 3000,outputname = "AFSCN_ONLY")
+    #     True,kept = 6000,outputname = "AFSCN_ONLY")
 
     # plot_covariance_schedule_from_list_of_folder(folder_list_AFSCN_DSN,
     #     "/home/anfr8485/FALCON/Filter/test/advspc_results/",
-    #     True,kept = 3000,outputname = "AFSCN_DSN")
+    #     True,kept = 6000,outputname = "AFSCN_DSN")
 
     # plot_covariance_schedule_from_list_of_folder(folder_list_DSN_8_HRS_ONLY_NOISE_LVL,
     #     "/home/anfr8485/FALCON/Filter/test/advspc_results/",
-    #     True,kept = 3000,outputname = "DSN_8_ONLY_NOISE_LVL")
+    #     True,kept = 6000,outputname = "DSN_8_ONLY_NOISE_LVL")
 
     # plot_covariance_schedule_from_list_of_folder(folder_list_DSN_8_HRS_ONLY_PN_LVL,
     #     "/home/anfr8485/FALCON/Filter/test/advspc_results/",
-    #     True,kept = 3000,outputname = "DSN_8_ONLY_PN_LVL")
+    #     True,kept = 6000,outputname = "DSN_8_ONLY_PN_LVL")
 
 
 
@@ -713,8 +713,11 @@ def plot_covariance_overlay_from_list_of_folder(folder_list,inputfolder,
     sd_states_all_cases = []
 
     labels =  create_labels(convert_to_RTN)
+    plt.figure()
+    plt.suptitle(outputname)
 
     if plot_RSS:
+
 
         # Creating the subplots
         ax_pos_RSS = plt.subplot(121)
@@ -724,7 +727,6 @@ def plot_covariance_overlay_from_list_of_folder(folder_list,inputfolder,
         # Plot e3 vel component
         ax_vel_RSS = plt.subplot(122, sharex= ax_pos_RSS)
         plt.ylabel("Velocity RSS (km/s)")
-
         plt.xlabel("Days since Epoch")
 
     else:
@@ -792,9 +794,9 @@ def plot_covariance_overlay_from_list_of_folder(folder_list,inputfolder,
 
                 # Plot e2 pos component
                 if log_scale:
-                    ax_vel_RSS.semilogy(epoch,3 * sd_states_vel,'.')
+                    ax_vel_RSS.semilogy(epoch,3 * sd_states_vel,'.',label = subfolder)
                 else:
-                    ax_vel_RSS.plot(epoch,3 * sd_states_vel,'.')
+                    ax_vel_RSS.plot(epoch,3 * sd_states_vel,'.',label = subfolder)
 
         
             else:
@@ -839,13 +841,11 @@ def plot_covariance_overlay_from_list_of_folder(folder_list,inputfolder,
                     ax_z_vel.plot(epoch,3 * sd_states[:,5],'.')
 
 
-    plt.title(outputname)
 
-
-
-
+    plt.legend(loc = "center right",bbox_inches = (1,0.5))  
+             
     if outputname is not None:
-        plt.savefig(outputname)
+        plt.savefig(outputname,bbox_inches='tight')
     else:
         plt.show()
 
