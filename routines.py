@@ -849,6 +849,7 @@ def plot_covariance_overlay_from_list_of_folder(folder_list,inputfolder,
         plt.xlabel("Days since Epoch")
 
     # Loading and plotting
+    ncol = 0
     for folder in os.walk(inputfolder) :
         for subfolder in folder[1]:
             foldername = folder[0] + subfolder + "/"
@@ -883,6 +884,7 @@ def plot_covariance_overlay_from_list_of_folder(folder_list,inputfolder,
                         label = "8 hours"
                     elif "24_HRS" in foldername:
                         label = "24 hours"
+                    ncol = ncol + 1
 
                 elif outputname == "AFSCN_DSN_8_HRS_R_NOISE_LVL" or outputname == "AFSCN_ONLY_8_HRS_R_NOISE_LVL":
                     if "_R_5" in foldername:
@@ -893,6 +895,8 @@ def plot_covariance_overlay_from_list_of_folder(folder_list,inputfolder,
                         label = r"$10^{-3}\ \mathrm{km}$"
                     elif "_R_2" in foldername:
                         label = r"$10^{-2}\ \mathrm{km}$"
+                    ncol = ncol + 1
+
 
                 elif outputname == "AFSCN_DSN_8_HRS_RR_NOISE_LVL" or outputname == "AFSCN_8_HRS_ONLY_RR_NOISE_LVL":
                     if "RR_8" in foldername:
@@ -903,6 +907,8 @@ def plot_covariance_overlay_from_list_of_folder(folder_list,inputfolder,
                         label = r"$10^{-6}\ \mathrm{km/s}$"
                     elif "RR_5" in foldername:
                         label = r"$10^{-5}\ \mathrm{km/s}$"
+                    ncol = ncol + 1
+
 
                 elif outputname == "AFSCN_DSN_8_HRS_PN_LVL" or outputname == "AFSCN_8_HRS_ONLY_PN_LVL":
                     if "PN_12" in foldername:
@@ -913,6 +919,8 @@ def plot_covariance_overlay_from_list_of_folder(folder_list,inputfolder,
                         label = r"$10^{-8}\ \mathrm{km/s^2}$"
                     elif "PN_6" in foldername:
                         label = r"$10^{-6}\ \mathrm{km/s^2}$"
+                    ncol = ncol + 1
+
 
 
                 # Plot e1 pos component
@@ -973,7 +981,7 @@ def plot_covariance_overlay_from_list_of_folder(folder_list,inputfolder,
 
 
 
-    plt.legend(loc = "upper center",bbox_to_anchor = (0.5,1.1))  
+    ax_pos_RSS.legend(loc = "upper center",bbox_to_anchor = (0.5,1.1),ncol = ncol)  
              
     if outputname is not None:
         plt.savefig(outputname,bbox_inches='tight')
