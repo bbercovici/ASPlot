@@ -647,7 +647,8 @@ Generates the covariance overlays for the required combination of cases
 def plot_covariance_overlays():
 
 
-    folder_list_AFSCN_ONLY  = ["/home/anfr8485/FALCON/Filter/test/advspc_results_test/AFSCN_DSN_4_HRS_R_4_RR_7_PN_10/",
+    folder_list_AFSCN_ONLY  = [
+    "/home/anfr8485/FALCON/Filter/test/advspc_results_test/AFSCN_DSN_4_HRS_R_4_RR_7_PN_10/",
     "/home/anfr8485/FALCON/Filter/test/advspc_results_test/AFSCN_DSN_8_HRS_R_4_RR_7_PN_10/",
     "/home/anfr8485/FALCON/Filter/test/advspc_results_test/AFSCN_DSN_24_HRS_R_4_RR_7_PN_10/"]  
 
@@ -659,7 +660,7 @@ def plot_covariance_overlays():
     # Hours-per-day tradoff #
     #########################
 
-    source_folder = "/home/anfr8485/FALCON/Filter/test/advspc_results/"
+    # source_folder = "/home/anfr8485/FALCON/Filter/test/advspc_results/"
 
     # folder_list_AFSCN_ONLY  = [
     # source_folder + "AFSCN_ONLY_4_HRS_R_3_RR_6_PN_12/",
@@ -755,10 +756,10 @@ def plot_covariance_overlays():
     ####################
 
     # folder_list_DSN_8_HRS_ONLY_PN_LVL  = [
-    # source_folder + "DSN_ONLY_4_HRS_R_3_RR_6_PN_12/",
+    # source_folder + "DSN_ONLY_8_HRS_R_3_RR_6_PN_12/",
     # source_folder + "DSN_ONLY_8_HRS_R_3_RR_6_PN_10/",
-    # source_folder + "DSN_ONLY_24_HRS_R_3_RR_6_PN_8/"
-    # source_folder + "DSN_ONLY_24_HRS_R_3_RR_6_PN_6/"]
+    # source_folder + "DSN_ONLY_8_HRS_R_3_RR_6_PN_8/"
+    # source_folder + "DSN_ONLY_8_HRS_R_3_RR_6_PN_6/"]
 
     # plot_covariance_schedule_from_list_of_folder(
     # folder_list_DSN_8_HRS_ONLY_PN_LVL,
@@ -768,10 +769,10 @@ def plot_covariance_overlays():
     # outputname = "DSN_8_HRS_ONLY_PN_LVL")
 
     # folder_list_AFSCN_8_HRS_ONLY_NOISE_LVL  = [
-    # source_folder + "AFSCN_ONLY_4_HRS_R_3_RR_6_PN_12/",
+    # source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_6_PN_12/",
     # source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_6_PN_10/",
-    # source_folder + "AFSCN_ONLY_24_HRS_R_3_RR_6_PN_8/",
-    # source_folder + "AFSCN_ONLY_24_HRS_R_3_RR_6_PN_6/"]  
+    # source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_6_PN_8/",
+    # source_folder + "AFSCN_ONLY_8_HRS_R_3_RR_6_PN_6/"]  
 
     # plot_covariance_schedule_from_list_of_folder(
     # folder_list_AFSCN_8_HRS_ONLY_PN_LVL,
@@ -779,7 +780,6 @@ def plot_covariance_overlays():
     # True,
     # kept = 6000,
     # outputname = "AFSCN_8_HRS_ONLY_PN_LVL")
-
 
 
 '''
@@ -885,26 +885,36 @@ def plot_covariance_overlay_from_list_of_folder(folder_list,inputfolder,
                     elif "24_HRS" in foldername:
                         label = "24 hours"
 
-                elif outputname == "DSN_8_ONLY_NOISE_R":
-                    if "R_5" in foldername:
+                elif outputname == "DSN_8_HRS_ONLY_R_NOISE_LVL" or outputname == "AFSCN_8_HRS_ONLY_R_NOISE_LVL":
+                    if "_R_5" in foldername:
                         label = r"$10^{-5}\ \mathrm{km}$"
-                    elif "R_4" in foldername:
+                    elif "_R_4" in foldername:
                         label = r"$10^{-4}\ \mathrm{km}$"
-                    elif "R_3" in foldername:
+                    elif "_R_3" in foldername:
                         label = r"$10^{-3}\ \mathrm{km}$"
-                    elif "R_2" in foldername:
+                    elif "_R_2" in foldername:
                         label = r"$10^{-2}\ \mathrm{km}$"
 
-                elif outputname == "DSN_8_ONLY_PN_LVL":
+                elif outputname == "DSN_8_HRS_ONLY_RR_NOISE_LVL" or outputname == "AFSCN_8_HRS_ONLY_RR_NOISE_LVL":
+                    if "RR_8" in foldername:
+                        label = r"$10^{-8}\ \mathrm{km/s}$"
+                    elif "RR_7" in foldername:
+                        label = r"$10^{-7}\ \mathrm{km/s}$"
+                    elif "RR_6" in foldername:
+                        label = r"$10^{-6}\ \mathrm{km/s}$"
+                    elif "RR_5" in foldername:
+                        label = r"$10^{-5}\ \mathrm{km/s}$"
 
-                elif outputname == "AFSCN_8_ONLY_NOISE_LVL":
+                elif outputname == "DSN_8_HRS_ONLY_PN_LVL" or outputname == "AFSCN_8_HRS_ONLY_PN_LVL":
+                    if "PN_12" in foldername:
+                        label = r"$10^{-12}\ \mathrm{km/s^2}$"
+                    elif "PN_10" in foldername:
+                        label = r"$10^{-10}\ \mathrm{km/s^2}$"
+                    elif "PN_8" in foldername:
+                        label = r"$10^{-8}\ \mathrm{km/s^2}$"
+                    elif "PN_6" in foldername:
+                        label = r"$10^{-6}\ \mathrm{km/s^2}$"
 
-                elif outputname == "AFSCN_8_ONLY_PN_LVL":
-
-
-
-
-                
 
                 # Plot e1 pos component
                 if log_scale:
